@@ -1,0 +1,8 @@
+Users: Stores user information.
+Categories: Stores product categories.
+Products: Stores product information and is linked to categories.
+Orders: Stores order information and is linked to users.
+Order Items: Stores items within an order and is linked to orders and products.
+Cart Items: Stores items within a user's cart and is linked to users and products.
+Payments: Stores payment information for orders and is linked to orders.
+Home Page Content: Stores dynamic content for the home page managed by the admin.
