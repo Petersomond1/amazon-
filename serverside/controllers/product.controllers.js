@@ -1,27 +1,26 @@
 import db from '../config/db.js';
 import handleError from '../utils/handleError.js';
-// import { validationResult } from 'express-validator';
+import { validationResult } from 'express-validator';
 
 
 export const addRowsIds = async (req, res) => {
-    const rows = req.body;
-    if (!rows || !Array.isArray(rows)) {
-        return res.status(400).json({ error: 'Invalid data format' });
-    }
+  const rows = req.body;
+  if (!rows || !Array.isArray(rows)) {
+    return res.status(400).json({ error: 'Invalid data format' });
+  }
 
-    const updateQuery = "UPDATE idstofeature SET row_ids = ? WHERE id = ?";
+  const updateQuery = "UPDATE idstofeature SET row_ids = ? WHERE id = ?";
 
-    try {
-        await Promise.all(rows.map(async (numbers, index) => {
-            const id = index + 1;
-            const numbersArray = numbers.split(',').map(numStr => parseInt(numStr.trim()));
-            await db.query(updateQuery, [JSON.stringify(numbersArray), id]);
-        }));
-        res.status(200).json({ message: "Data updated" });
-    } catch (error) {
-        console.error("Error updating rows:", error);
-        res.status(500).json({ error: "Failed to update rows" });
-    }
+  try {
+    await Promise.all(rows.map(async (numbersArray, index) => {
+      const id = index + 1;
+      await db.query(updateQuery, [JSON.stringify(numbersArray), id]);
+    }));
+    res.status(200).json({ message: "Data updated" });
+  } catch (error) {
+    console.error("Error updating rows:", error);
+    res.status(500).json({ error: "Failed to update rows" });
+  }
 };
 
 
@@ -47,14 +46,35 @@ export const createProduct = async (req, res) => {
 };
 
 // Get all products
+
 export const getAllProducts = async (req, res) => {
     try {
-        const [rows] = await db.execute('SELECT * FROM products');
-        res.status(200).json(rows);
+        const que = "SELECT * from idstofeature;";
+  
+        const result = await db.query(que);
+        // Parse the row_ids strings into arrays and then flatten them
+        const RowIds = result[0].flatMap(row => row.row_ids);
+        // console.log("RowIds in All row_ids @ /products: ", RowIds);
+        const allRowIds = result[0]
+            .flatMap(row => JSON.parse(row.row_ids));
+  
+        // console.log("All row_ids: ", allRowIds);
+        
+        // Construct the placeholders for the SQL query
+        const placeholders = allRowIds.map(() => '?').join(',');
+        // console.log("placeholders in All row_ids @ /products : ", placeholders);
+  
+        // Create the SQL query
+  const qu = `SELECT * FROM products WHERE id IN (${placeholders})`;
+  
+        // Use spread operator to pass the values
+        const data = await db.query(qu, [...allRowIds]);
+        res.status(200).json([data, RowIds]);
     } catch (error) {
-        handleError(error, req, res);
+        // console.log("the problem is here: ", error.message);
     }
-};
+  }
+  
 
 // Get a single product by ID
 export const getProductById = async (req, res) => {

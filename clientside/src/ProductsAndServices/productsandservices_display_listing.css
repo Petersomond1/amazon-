@@ -1,0 +1,31 @@
+.listing_container{
+    display: flex;
+/* flex-direction:row; */
+flex-wrap: wrap;
+}
+
+.listing_card{
+    display: flex;
+    justify-content: space-between;
+    width: 650px;
+    height: 600px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.1);
+}
+
+.listing_image img{
+    width: 450px;
+    height: 450px;
+    object-fit:contain;
+    border-radius: 5px;
+}
+
+.listing_details{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    margin-top: 10px;
+}

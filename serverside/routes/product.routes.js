@@ -37,6 +37,7 @@ router.post('/',
 );
 
 router.get('/', getAllProducts);
+
 router.get('/:id', getProductById);
 
 router.put("/:id",

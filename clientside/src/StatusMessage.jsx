@@ -9,7 +9,7 @@ const StatusMessage = () => {
         const fetchUser = async () => {
             try {
                 const response = await axios.get('http://localhost:4000/api/auth/user', { withCredentials: true });
-                console.log('Fetched user:', response.data);
+                // console.log('Fetched user:', response.data);
                 setUser(response.data);
             } catch (error) {
                 console.error('Could not fetch user details:', error);

@@ -35,11 +35,15 @@ function DashFeatureProducts() {
     setFormData(newData);
   };
 
+//To directly update each row_ids in the database using its sql query, we need to send the data in the format that the database expects.
+// we make use of: UPDATE idstofeature SET row_ids = '["1", "2", "3"]' WHERE id = 1;
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/product/row_ids", 
+        "http://localhost:4000/api/products/row_ids", 
         formData,
         { withCredentials: true } 
       );
@@ -86,7 +90,7 @@ function DashFeatureProducts() {
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
         {formData.map((_, index) => (
           <div key={index}>
             <label>{`Row ${index + 1} IDs:`}</label>

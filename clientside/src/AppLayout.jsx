@@ -1,12 +1,12 @@
 import React from 'react';
-import Navbardown from './navbar/Navbardown';
+// import Navbardown from './navbar/Navbardown';
 import { Outlet } from 'react-router-dom';
 
 
 const AppLayout = () => {
   return (
     <>
-      <Navbardown />
+      {/* <Navbardown /> */}
       <Outlet />
     </>
   );

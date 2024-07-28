@@ -9,4 +9,5 @@ router.get('/search', searchProducts);
 router.get('/filter', filterProducts);
 router.get('/categories', getCategories);
 
+
 export default router;

@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
-//import { QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Navbarup from "./navbar/Navbarup";
 import AppLayout from "./AppLayout";
 import Navbardown from "./navbar/Navbardown";
 import Footer from "./navbar/Footer";
-//import ProductsAndServices_Display_Row_1_Carousel_Listing from "./ProductsAndServices/ProductsAndServices_Display_Row_1_Carousel_Listing";
+import ProductsAndServices_Display_Row_1_Carousel_Listing from "./ProductsAndServices/ProductsAndServices_Display_Row_1_Carousel_Listing";
 //import ProductsAndServices_Display_Row_2_Listing from "./ProductsAndServices/ProductsAndServices_Display_Row_2_Listing";
 //import ProductsAndServices_Display_Row_3_Listing from "./ProductsAndServices/ProductsAndServices_Display_Row_3_Listing";
 //import ProductsAndServices_Display_Row_4_Listing from "./ProductsAndServices/ProductsAndServices_Display_Row_4_Listing";
@@ -19,14 +19,14 @@ import ProductsAndServices_Display from "./ProductsAndServices/ProductsAndServic
 //import CheckoutToShipping from "./ProductsAndServices/CheckoutToShipping";
 //import Payment from "./ProductsAndServices/Payment.jsx";
 import AdminDashboard from "./Admindashboard/AdminDashboard";
-//import ProductsAndServices_SingleDisplay from "./ProductsAndServices/ProductsAndServices_SingleDisplay";
-//import ProductsAndServices_CategoryDisplay from "./ProductsAndServices/ProductsAndServices_CategoryDisplay";
+import ProductsAndServices_SingleDisplay from "./ProductsAndServices/ProductsAndServices_SingleDisplay";
+import ProductsAndServices_CategoryDisplay from "./ProductsAndServices/ProductsAndServices_CategoryDisplay";
 import Login from "./Login.jsx";
 import Register from "./Register.jsx"; // Make sure you have these components
 import StatusMessage from "./StatusMessage";  // Import the status message component
 import axios from 'axios';
 
-//const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
 
 const RedirectToDashboard = () => {
@@ -53,7 +53,7 @@ const RedirectToDashboard = () => {
 function App() {
   return (
     //<CartProvider>
-    //  <QueryClientProvider client={queryClient}>
+     <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Navbarup />
           <Navbardown />
@@ -66,14 +66,14 @@ function App() {
             <AdminDashboard />
           </PrivateRoute>
         } />
-            {/* <Route path="/ProductsAndServices_Display_Row_1_Carousel_Listing" element={<ProductsAndServices_Display_Row_1_Carousel_Listing />}></Route> */}
+           <Route path="/ProductsAndServices_Display_Row_1_Carousel_Listing" element={<ProductsAndServices_Display_Row_1_Carousel_Listing />}></Route>
             {/* <Route path="/ProductsAndServices_Display_Row_2_Listing/:category" element={<ProductsAndServices_Display_Row_2_Listing />}></Route> */}
             {/* <Route path="/ProductsAndServices_Display_Row_3_Listing" element={<ProductsAndServices_Display_Row_3_Listing />}></Route> */}
             {/* <Route path="/ProductsAndServices_Display_Row_4_Listing" element={<ProductsAndServices_Display_Row_4_Listing />}></Route> */}
             {/* <Route path="/ProductsAndServices_Display_Row_5_Listing" element={<ProductsAndServices_Display_Row_5_Listing />}></Route> */}
             {/* <Route path="/ProductsAndServices_Display_Row_6_Listing" element={<ProductsAndServices_Display_Row_6_Listing />}></Route> */}
-            {/* <Route path="/ProductsAndServices_SingleDisplay/:id" element={<ProductsAndServices_SingleDisplay />}></Route> */}
-            {/* <Route path="/ProductsAndServices_CategoryDisplay/:category" element={<ProductsAndServices_CategoryDisplay />}></Route> */}
+            <Route path="/ProductsAndServices_SingleDisplay/:id" element={<ProductsAndServices_SingleDisplay />}></Route> 
+          <Route path="/ProductsAndServices_CategoryDisplay/:category" element={<ProductsAndServices_CategoryDisplay />}></Route> 
             {/* <Route path="/api/cart" element={<Cart />}></Route> */}
             {/* <Route path="/api/checkouttoshipping" element={<CheckoutToShipping />}></Route> */}
             {/* <Route path="/api/payment" element={<Payment />}></Route> */}
@@ -83,7 +83,7 @@ function App() {
           </Routes>
           <Footer />
         </BrowserRouter>
-      //</QueryClientProvider>
+      </QueryClientProvider>
    // </CartProvider>
   );
 }
