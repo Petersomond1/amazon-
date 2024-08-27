@@ -3,27 +3,25 @@ import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import compression from 'compression';
-import path from 'path';
+// import path from 'path';
 import cors from 'cors';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+// import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser'
+// import { dirname } from 'path';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
 import multer from 'multer';
-import pool from './config/db.js';
-import router from './routes/routeCenter.js';
+ import pool from './config/db.js'
+// import router from './routes/routeCenter.js'
+// import bcrypt from 'bcrypt' 
+
 
 // Load environment variables from .env file
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const upload = multer({ dest: 'uploads/' });
+
 
 const app = express();
-
-const port = process.env.PORT || 4000;
 
 // Middleware configurations
 app.use(cors({
@@ -40,14 +38,14 @@ const limiter = rateLimit({
     message: 'Too many requests from this IP, please try again after 15 minutes'
 });
 
-app.use(limiter);
+// app.use(limiter);
 app.use(morgan('dev')); 
 app.use(helmet()); 
 app.use(compression()); 
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(bodyParser.json());
 
 // Test database connection
@@ -60,9 +58,12 @@ pool.getConnection()
         console.error('Error connecting to database:');
     });
 
-app.use('/api', router);
+// app.use('/api', router);
+
+
+
 
 // Start the server
-app.listen(port, () => {
-    console.log('Server started at Port ${port}');
+app.listen(process.env.PORT, () => {
+    console.log(`Server started at Port ${process.env.PORT}`);
 });
