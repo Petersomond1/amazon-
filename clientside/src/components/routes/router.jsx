@@ -9,11 +9,17 @@ import {
 import DefaultLayout from "../../views/layouts/DefaultLayout";
 import AdminProductsSelector from "../../views/adminViews/AdminProductsSelector";
 import DashLayout from "../../views/layouts/DashLayout";
+import Home from "../../views/Home";
 
 const router = createBrowserRouter([
     {
       path: "/",
-      element: <DefaultLayout/>
+      element: <DefaultLayout/>,
+      children: [
+        {path: "home",
+         element: <Home/>,
+        } 
+       ]
     },
     {
       path: "/AdminDashboard",

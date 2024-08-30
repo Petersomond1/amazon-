@@ -1,10 +1,14 @@
 import express from "express";
-import { selectProductsid } from "../controllers/admin.controller.js";
+import { selectProductsid, GetFeaturedIds } from "../controllers/admin.controller.js";
 
 const router = express.Router();
 
 router.post(
     '/submitid', selectProductsid
+)
+
+router.get('/get-featured-ids', GetFeaturedIds
+
 )
 
 
