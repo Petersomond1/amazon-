@@ -18,3 +18,13 @@ export const selectProductsid = async (req, res) => {
         console.log(error)
     }
 };
+
+export const GetFeaturedIds = async(req, res) => {
+    try{
+        const result = await query.db('SELECT * FROM idstofeature'); 
+res.status(200).json(result);
+    }catch (error){
+console.log(error)
+    }
+
+}
