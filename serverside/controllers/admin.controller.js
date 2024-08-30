@@ -4,11 +4,17 @@ import db from '../config/db.js';
 
 // Select productsid to feature
 export const selectProductsid = async (req, res) => {
+    const rows = req.body; // rows should be an array of arrays with {id} objects
+    const updateQuery = "UPDATE idstofeature SET row_ids = ? WHERE id = ?";
+
     try {
-        // const [rows] = await db.execute('SELECT * FROM idstofeature');
-        console.log(req.body)
-        res.status(200).json(rows);
+        for (let i = 0; i < rows.length; i++) {
+            const array = rows[i].map(item => item.id); // Extracting ids from each subarray
+            const result = await db.query(updateQuery, [JSON.stringify(array), i + 1]);
+        }
+        res.status(200).json({ result: "worked!!!" });
     } catch (error) {
-        handleError(error, req, res);
+        // handleError(error, req, res);
+        console.log(error)
     }
 };

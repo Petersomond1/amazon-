@@ -1,4 +1,5 @@
 import express from "express";
+import { selectProductsid } from "../controllers/admin.controller.js";
 
 const router = express.Router();
 
