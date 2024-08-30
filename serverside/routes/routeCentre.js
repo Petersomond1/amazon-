@@ -1,7 +1,7 @@
 import express from 'express';
 // import authRoutes from './auth.routes.js';
 // import productRoutes from './product.routes.js';
-import adminRoutes from './admin.routes.js';
+import adminRoutes from './admin.route.js';
 // import cartRoutes from './cart.routes.js';
 // import orderRoutes from './order.routes.js';
 // import clientRoutes from './client.routes.js';

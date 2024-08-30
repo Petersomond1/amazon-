@@ -12,7 +12,7 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import multer from 'multer';
  import pool from './config/db.js'
-import router from './routes/routeCenter.js'
+import router from './routes/routeCentre.js'
 // import bcrypt from 'bcrypt' 
 
 
