@@ -22,7 +22,7 @@ const Home = () => {
 
  } )
 
- console.log( 'the data', data)
+ //console.log( 'the data', data)
 
 //   const {
 //     data: categories,
