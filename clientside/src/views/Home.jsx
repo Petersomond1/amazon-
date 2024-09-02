@@ -40,20 +40,25 @@ const Home = () => {
   
 
   // Data extraction from fetched products
-  const firstProductSet = products && products[0] ? products[0][0] : [];
-  const secondProductSet = products && products[1] ? products[1][0] : [];
-  const thirdProductSet = products && products[2] ? products[2][0] : [];
-  const fourthProductSet = products && products[3] ? products[3][0] : [];
-  const fifthProductSet = products && products[4] ? products[4][0] : [];
-  const sixthProductSet = products && products[5] ? products[5][0] : [];
+  // const firstProductSet = products && products[0] ? products[0][0] : [];
+  // const secondProductSet = products && products[1] ? products[1][0] : [];
+  // const thirdProductSet = products && products[2] ? products[2][0] : [];
+  // const fourthProductSet = products && products[3] ? products[3][0] : [];
+  // const fifthProductSet = products && products[4] ? products[4][0] : [];
+  // const sixthProductSet = products && products[5] ? products[5][0] : [];
 
   if (isLoading)
     return <div>url Loading</div>
   return (
     <div className="bg-[#E3E6E6]">
         {
-            data
+            data?.map((row)=>(
+              <div key={row.id}>{row.row_ids}</div>
+            )
+          )
         }
+
+        <h1> 'The data'; </h1>
       {/* <div className="">
         <HomeHeader firstProductSet={firstProductSet} />
       </div> */}

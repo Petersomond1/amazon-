@@ -21,10 +21,11 @@ export const selectProductsid = async (req, res) => {
 
 export const GetFeaturedIds = async(req, res) => {
     try{
-        const result = await query.db('SELECT * FROM idstofeature'); 
-res.status(200).json(result);
+        const result = await db.query('SELECT * FROM idstofeature'); 
+        const data = result[0]
+        res.status(200).json(data);
     }catch (error){
-console.log(error)
+        console.log(error)
     }
 
 }

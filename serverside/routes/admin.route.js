@@ -7,9 +7,7 @@ router.post(
     '/submitid', selectProductsid
 )
 
-router.get('/get-featured-ids', GetFeaturedIds
-
-)
-
+router.get('/get-featured-ids', GetFeaturedIds)
+        
 
 export default router;
