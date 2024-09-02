@@ -51,12 +51,7 @@ const Home = () => {
     return <div>url Loading</div>
   return (
     <div className="bg-[#E3E6E6]">
-        {
-            data?.map((row)=>(
-              <div key={row.id}>{row.row_ids}</div>
-            )
-          )
-        }
+       
 
         <h1> 'The data'; </h1>
       {/* <div className="">
