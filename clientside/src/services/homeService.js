@@ -12,7 +12,6 @@ export async function fetchIdsofProducts() {
         console.log("here is the ids ", idsArray)
         // Iterate over the idsArray and conditionally fetch data
         const requests = idsArray.map((item, index) => {
-            // const ids = JSON.parse(item.ids);
 
             if (index === 1) {
                 // Second row: fetch categories
@@ -24,11 +23,10 @@ export async function fetchIdsofProducts() {
         });
 
         const responses = await Promise.all(requests);
-        console.log("here is the pre-final response ", responses)
-        const dataObjects = responses.map(response => response.data);
-        console.log("here is the final response ", dataObjects)
+        console.log("here is the final response ", responses)
 
-        return dataObjects;
+
+        return responses;
 
     } catch (error) {
         console.error("Error fetching IDs and products:", error);
@@ -38,9 +36,6 @@ export async function fetchIdsofProducts() {
 
 // Function to fetch products by IDs
 const getProducts = async(ids) => {
-    console.log("her is the recieved ids ", ids)
-    //const newString = ids.join(',')
-    //console.log('the new string ', newString)
     try {
         const response = await api.get(`/client/home-products?ids=${ids}`);
         return response.data;
