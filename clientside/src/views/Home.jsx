@@ -8,15 +8,17 @@ import { useQuery } from "react-query";
 import { fetchIdsofProducts} from "../services/homeService.js";
 // import ProductsCards from "../components/common/ProductCards.jsx";
 // import FourthView from "./FourthView.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const Home = () => {
   const [fetchProducts, setFetchProducts] = useState(true);
+  const {user, loading, error, checkAuth} = useAuth()
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const {data, isLoading, error} = useQuery({
+  const {data, isLoading, error:fetchedError} = useQuery({
     queryKey: "fetchIdsofProducts",
     queryFn: fetchIdsofProducts,
 
@@ -53,7 +55,7 @@ const Home = () => {
     <div className="bg-[#E3E6E6]">
        
 
-        <h1> 'The data'; </h1>
+        <h1> THISI IS THE HOME PAGE </h1>
       {/* <div className="">
         <HomeHeader firstProductSet={firstProductSet} />
       </div> */}

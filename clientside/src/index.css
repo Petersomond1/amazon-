@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .headerHover {
+    @apply px-2 h-[80%] flex items-center border border-transparent cursor-pointer duration-100;
+  }
+  .headerHover:hover {
+    @apply border-white;
+  }
+  .footerLink{
+    @apply text-sm font-titleFont tracking-wide hover:text-gray-100 cursor-pointer
+    hover:underline duration-150
+  }
+  .productLi{
+    @apply text-gray-600 hover:text-black text-sm font-medium border-b-[1px]
+    border-b-gray-400 hover:border-b-gray-700 flex items-center justify-end gap-2 
+    hover:cursor-pointer duration-300 w-full
+  }
+}

@@ -1,0 +1,23 @@
+export const allItems = [
+    { id: 0, title: "All" },
+    { id: 1, title: "Automotive" },
+    { id: 2, title: "Baby" },
+    { id: 3, title: "Beauty & Personal Care" },
+    { id: 4, title: "Books" },
+    { id: 5, title: "Computers" },
+    { id: 6, title: "Electronics" },
+    { id: 7, title: "Fashion" },
+    { id: 8, title: "Grocery & Gourmet Food" },
+    { id: 9, title: "Health & Household" },
+    { id: 10, title: "Home & Kitchen" },
+    { id: 11, title: "Industrial & Scientific" },
+    { id: 12, title: "Movies & TV" },
+    { id: 13, title: "Music, CDs & Vinyl" },
+    { id: 14, title: "Pet Supplies" },
+    { id: 15, title: "Software" },
+    { id: 16, title: "Sports & Outdoors" },
+    { id: 17, title: "Tools & Home Improvement" },
+    { id: 18, title: "Toys & Games" },
+    { id: 19, title: "Video Games" },
+  ];
+  
