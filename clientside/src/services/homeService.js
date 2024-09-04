@@ -9,7 +9,7 @@ export async function fetchIdsofProducts() {
     try {
         const response = await api.get('/admin/get-featured-ids');
         const idsArray = response.data;
-        console.log("here is the ids ", idsArray)
+
         // Iterate over the idsArray and conditionally fetch data
         const requests = idsArray.map((item, index) => {
 
@@ -23,8 +23,6 @@ export async function fetchIdsofProducts() {
         });
 
         const responses = await Promise.all(requests);
-        console.log("here is the final response ", responses)
-
 
         return responses;
 

@@ -1,0 +1,9 @@
+
+
+.listCards{
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    column-gap: 10px;
+    row-gap: 20px;
+}

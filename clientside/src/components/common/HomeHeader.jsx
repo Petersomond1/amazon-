@@ -1,16 +1,10 @@
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import "../styles/listCard.css";
+import "../style/homeListCard.css";
 import { Link } from "react-router-dom";
 import React from "react";
 import Slider from "react-slick";
-// testing
-import first from "../../assets/assets/banner/first.jpg";
-import second from "../../assets/assets/banner/second.jpg";
-import third from "../../assets/assets/banner/third.jpg";
-import fourth from "../../assets/assets/banner/fourth.jpg";
-import fifth from "../../assets/assets/banner/fifth.jpg";
-// testing
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -71,6 +65,7 @@ function SamplePrevArrow(props) {
 }
 
 function HomeHeader({ firstProductSet }) {
+  console.log("this is first carousel ", firstProductSet)
   const settings = {
     infinite: true,
     autoplay: true,
@@ -82,14 +77,14 @@ function HomeHeader({ firstProductSet }) {
     prevArrow: <SamplePrevArrow />,
   };
 
-  const data = [first, second, third, fourth, fifth];
 
   return (
     <div className="slider-container ">
       <Slider {...settings}>
-        {data.map((image, index) => (
+        {firstProductSet?.map((item, index) => (
           <div key={index} className="relative">
-            <img src={image} alt={`slide-${index}`} className="w-full z-0" />
+            {index ==1 && console.log("here is the item ", item)}
+            <img src={item.image} alt={`slide-${index}`} className="w-full z-0" />
           </div>
         ))}
       </Slider>
