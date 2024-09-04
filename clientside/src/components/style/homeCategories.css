@@ -1,0 +1,40 @@
+
+.cardid {
+    /* width: 1fr;  */
+    height: 400px;
+    width: 22%;
+    overflow: hidden;
+    margin-bottom: 10px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px; 
+    
+   
+}
+
+.card-image {
+    width: 100%;
+    height: 280px;
+    object-fit: cover; /* Keeps the aspect ratio */
+}
+
+.card-content {
+    padding: 10px;
+
+}
+
+.card-links {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10px;
+}
+
+.card-link {
+    text-decoration: none;
+    background-color: white;
+    color: #06c;
+    font-size: 14px;
+}
