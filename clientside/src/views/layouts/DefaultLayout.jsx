@@ -1,13 +1,28 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+// src/components/layout/Layout.js
+import React, { useState } from "react";
+import Navbar from "./Navbar";
+import Footer from "./footer/Footer";
+import { Outlet } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
-function DefaultLayout() {
+const DefaultLayout = () => {
+  const { user, loading, error, checkAuth } = useAuth();
+  console.log("the user data is here ", user)
+  const [sortOption, setSortOption] = useState("");
+
+  const handleSortData = (e) => {
+    setSortOption(e.target.value);
+  };
+
   return (
-    <>
-    <div>DefaultLayout</div>
-    <Outlet/>
-    </>
-  )
-}
+    <div className="font-bodyFont">
+      <Navbar user={user} loading={loading} checkAuth={checkAuth} error={error} />
+      <div className="relative z-0">
+        <Outlet  />
+      </div>
+      <Footer />
+    </div>
+  );
+};
 
-export default DefaultLayout
+export default DefaultLayout;
