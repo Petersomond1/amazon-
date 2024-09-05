@@ -39,7 +39,7 @@ const Home = () => {
   return (
     <div className="bg-[#E3E6E6]">
       
-      <div className="">
+      <div className="border border-[4px] border-blue-500 h-96 w-screen-full">
         <HomeHeader firstProductSet={firstProductSet} />
       </div> 
 
