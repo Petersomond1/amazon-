@@ -79,7 +79,7 @@ function HomeHeader({ firstProductSet }) {
 
 
   return (
-    <div className="slider-container ">
+    <div className="slider-container m-10 border border-[2px] border-green-500 ">
       <Slider {...settings}>
         {firstProductSet?.map((item, index) => (
           <div key={index} className="relative">

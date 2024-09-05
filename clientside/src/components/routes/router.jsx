@@ -10,6 +10,7 @@ import DefaultLayout from "../../views/layouts/DefaultLayout";
 import AdminProductsSelector from "../../views/adminViews/AdminProductsSelector";
 import DashLayout from "../../views/layouts/DashLayout";
 import Home from "../../views/Home";
+import AllProducts from "../../views/AllProducts";
 
 const router = createBrowserRouter([
     {
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
       children: [
         {path: "home",
          element: <Home/>,
-        } 
+        },
+        {path: "all-products",
+          element: <AllProducts />,
+         },
+
        ]
     },
     {

@@ -1,0 +1,35 @@
+.search-container{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.result-container{
+    position: relative;
+    margin: 5px;
+    border: 1px solid rgb(135, 135, 151);
+    border-radius: 10px 15px;
+    box-sizing: border-box;
+    width: 99%;
+    height: 42vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-result{
+    position: absolute;
+    left: 20px;
+    border-radius: 10px;
+   width: 400px;
+   height: auto;
+   margin: 15px;
+}
+
+.data-result{
+    margin: 5px;
+    border: 1px solid black;
+}
