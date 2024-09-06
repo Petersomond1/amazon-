@@ -18,7 +18,7 @@ const DefaultLayout = () => {
     <div className="font-bodyFont">
       <Navbar user={user} loading={loading} checkAuth={checkAuth} error={error} />
       <div className="relative z-0">
-        <Outlet  />
+        <Outlet   />
       </div>
       <Footer />
     </div>

@@ -11,6 +11,7 @@ import AdminProductsSelector from "../../views/adminViews/AdminProductsSelector"
 import DashLayout from "../../views/layouts/DashLayout";
 import Home from "../../views/Home";
 import AllProducts from "../../views/AllProducts";
+import ProductLayout from "../../views/layouts/ProductLayout";
 
 const router = createBrowserRouter([
     {
@@ -20,10 +21,6 @@ const router = createBrowserRouter([
         {path: "home",
          element: <Home/>,
         },
-        {path: "all-products",
-          element: <AllProducts />,
-         },
-
        ]
     },
     {
@@ -37,13 +34,15 @@ const router = createBrowserRouter([
     },
 
     {
-      path: "about",
-      element: <div>About</div>,
+      path: "/",
+      element: <ProductLayout/>,
+      children: [
+       {path: "all-products",
+        element: <AllProducts/>,
+       } 
+      ]
     },
-    {
-      path: "about",
-      element: <div>About</div>,
-    },
+
   ]);
 
   export default router;

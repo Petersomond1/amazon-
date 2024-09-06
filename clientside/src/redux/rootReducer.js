@@ -1,5 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import cartReducer from './slices/cartSlice';
+import cartReducer from  './slices/carSlice.js'
 import navigationReducer from './slices/navigationReducer';
 
 const rootReducer = combineReducers({
