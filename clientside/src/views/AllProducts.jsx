@@ -9,7 +9,7 @@ import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import "./style/products.css";
 import { useDispatch } from "react-redux";
 import { getAllProducts } from "../services/productServices";
-import { addItem } from "../redux/slices/cartSlice";
+import { addItem } from "../redux/slices/carSlice.js";
 
 const AllProducts = () => {
   const dispatch = useDispatch();

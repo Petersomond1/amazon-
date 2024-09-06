@@ -1,0 +1,83 @@
+.product-layout-container{
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+   
+}
+
+.product-main-content{
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar-layout{
+    flex: 1;
+    margin: 2px;
+    min-height: 79vh;
+}
+
+.product-layout-content{
+    flex: 5;
+    /* border: 1px solid blue; */
+    margin: 2px;
+    min-height: 89vh;
+}
+
+.Filter-header{
+    height: 40px;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+    background-color: rgb(252, 252, 252);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+
+}
+
+.some-stuff{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.select-filter{
+    
+}
+
+
+.products-sidebar-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    /* align-items: center; */
+    gap: 10px;
+}
+
+.fouth-sidebar-fiter{
+    border: 1px solid black;
+    border-radius: 5px;
+    flex: 1;
+
+    /* height: 22%; */
+}
+
+.third-sidebar-fiter{
+    border: 1px solid black;
+    border-radius: 5px;
+    flex: 1;
+}
+
+.first-sidebar-fiter{
+    border-radius: 5px;
+    flex: 1;
+
+}
+
+.second-sidebar-fiter{
+    border: 1px solid black;
+    border-radius: 5px;
+    flex: 1;
+
+}
