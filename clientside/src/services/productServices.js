@@ -35,15 +35,14 @@ export const useFetchProducts = () => {
     });
 };
 
-
-// Function to fetch a single product detail
-export const fetchProductDetails = async (productId) => {
-    const response = await api.get(`/products/${productId}`);
-    return response.data;
-};
-
 // Custom hook for fetching product details with caching
 export const useFetchProductDetails = (productId) => {
+
+    // Function to fetch a single product detail
+    const fetchProductDetails = async (productId) => {
+        const response = await api.get(`/products/${productId}`);
+        return response.data;
+    };
     return useQuery(['productDetails', productId], () => fetchProductDetails(productId), {
         enabled: !!productId,  // Only fetch when productId is available
         onSuccess: () => console.log('Product details fetched successfully.'),
@@ -51,22 +50,20 @@ export const useFetchProductDetails = (productId) => {
     });
 };
 
+// if ou're speaking, i cannot hear you 
+// am sorry... let me on whatsapp
+export const useGetCategoryProducts = (name)=> {
 
-export const getCategoryProducts = async (category) =>{
-    try {
-        const result = await api.get(`/product/category/${category}`)
-        return result.data
-    } catch (error) {
-        console.log("an issue happened while geting categorie data ", error)
-    }
+// fetch the products and the various categories
+const fetchCategories = async (name) => {
+   const response = await api.get(`/product/categories/${name}`);
+   return response.data;
 }
 
-export const getAllProducts = async () =>{
-    try {
-        const result = await api.get(`/product`)
-        return result.data
-    } catch (error) {
-        console.log("error in getting all data", error)
-        return error
-    }
-}
+return useQuery(['productsCategories', name],()=> fetchCategories(name), {
+    onSuccess: ()=> console.log('productsCategories fetched succesfully.'),
+    onError: (error)=> console.log('error fecthing productsCategories:', error)
+});
+};
+
+// lines 60 and line 63   why two return??

@@ -26,7 +26,6 @@ export const checkAuth = async (req, res) => {
     const user = fin[0][0];
     res.json({ user });
   } catch (error) {
-    console.log("problem here", error.message);
     res.status(401).json({ message: "Unauthorized step" });
   }
 };

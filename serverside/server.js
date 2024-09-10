@@ -13,6 +13,7 @@ import bodyParser from 'body-parser';
 import multer from 'multer';
  import pool from './config/db.js'
 import router from './routes/routeCentre.js'
+import globalErrorHandler from './utils/DefaultErrorHandler.js'
 // import bcrypt from 'bcrypt' 
 
 
@@ -59,6 +60,8 @@ pool.getConnection()
     });
 
 app.use('/api', router);
+
+app.use(globalErrorHandler)
 
 
 
