@@ -8,21 +8,18 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import "./style/products.css";
 import { useDispatch } from "react-redux";
-import { getAllProducts } from "../services/productServices";
+import {  useFetchProducts } from "../services/productServices";
 import { addItem } from "../redux/slices/carSlice.js";
 
 const AllProducts = () => {
   const dispatch = useDispatch();
-  const { isLoading, data, error } = useQuery({
-    queryKey: ["all products"],
-    queryFn: getAllProducts,
-  });
+  const { isLoading, data, error } = useFetchProducts()
 
   if (isLoading) {
     return <div> data is loading ... wait a second</div>;
   }
 
-  console.log("the products all are here ", data)
+ 
   if (error) {
     return <div>a problem while getting all products</div>;
   }
@@ -46,7 +43,8 @@ const AllProducts = () => {
   });
 
   return (
-    <div className="w-full bg-gray-100 p-4">
+    <div className="w-full bg-gray-100 p-4 ">
+      {/* in order to change the width you change the div under this comment to w-full instead of max-w-screen */}
       <div className="max-w-screen-2xl mx-auto grid grid-cols-4 gap-10 px-4 bg-[#E3E6E6] py-5">
         {sortedProducts?.map((item) => (
           <div
@@ -56,12 +54,12 @@ const AllProducts = () => {
         flex flex-col gap-4"
           >
             <span className="text-xs capitalize italic absolute top-2 right-2 text-gray-500">
-              category
+              {item.category_name}
             </span>
             <div className="w-full h-auto flex items-center justify-center relative group">
               <img
                 className="w-full h-[256px] object-contain"
-                src={item.image_url}
+                src={item.image}
                 alt=""
               />
               <ul

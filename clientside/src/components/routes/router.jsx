@@ -12,6 +12,7 @@ import DashLayout from "../../views/layouts/DashLayout";
 import Home from "../../views/Home";
 import AllProducts from "../../views/AllProducts";
 import ProductLayout from "../../views/layouts/ProductLayout";
+import ProductsCategories from "../../views/ProductsCategories";
 
 const router = createBrowserRouter([
     {
@@ -39,9 +40,15 @@ const router = createBrowserRouter([
       children: [
        {path: "all-products",
         element: <AllProducts/>,
+       },
+
+       {path: "category/:name",
+        element: <ProductsCategories/>,
        } 
       ]
     },
+
+    
 
   ]);
 
