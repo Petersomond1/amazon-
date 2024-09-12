@@ -13,6 +13,13 @@ import Home from "../../views/Home";
 import AllProducts from "../../views/AllProducts";
 import ProductLayout from "../../views/layouts/ProductLayout";
 import ProductsCategories from "../../views/ProductsCategories";
+import AdminDashboardProducts from "../../views/adminViews/AdminDashboardProducts"
+import AdminDashboardSales from "../../views/adminViews/AdminDashboardSales";
+import AdminDashboardOrders from "../../views/adminViews/AdminDashboardOrders";
+import AdminDashboardUsers from "../../views/adminViews/AdminDashboardUsers";
+import AdminDashboardShipping from "../../views/adminViews/AdminDashboardShipping";
+import AdminDashboardCalendar from "../../views/adminViews/AdminDashboardCalendar";
+import AdminDashboardInbox from "../../views/adminViews/AdminDashboardInbox";
 
 const router = createBrowserRouter([
     {
@@ -22,15 +29,22 @@ const router = createBrowserRouter([
         {path: "home",
          element: <Home/>,
         },
+        
        ]
     },
     {
       path: "/AdminDashboard",
       element: <DashLayout/>,
       children: [
-       {path: "AdminProductsSelector",
-        element: <AdminProductsSelector/>,
-       } 
+       {index : true, element: <AdminProductsSelector/>}, 
+       { path: "products", element: <AdminDashboardProducts /> },
+       { path: "sales", element: <AdminDashboardSales /> },
+       { path: "orders", element: <AdminDashboardOrders /> },
+       { path: "users", element: <AdminDashboardUsers />, errorElement:  <ErrorBoundary /> },
+       { path: "shipping", element: <AdminDashboardShipping /> },
+       { path: "calender", element: <AdminDashboardCalendar /> },
+       { path: "admininbox", element: <AdminDashboardInbox /> },
+
       ]
     },
 
@@ -44,7 +58,9 @@ const router = createBrowserRouter([
 
        {path: "category/:name",
         element: <ProductsCategories/>,
-       } 
+       } ,
+      
+       
       ]
     },
 
