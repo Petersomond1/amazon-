@@ -50,8 +50,7 @@ export const useFetchProductDetails = (productId) => {
     });
 };
 
-// if ou're speaking, i cannot hear you 
-// am sorry... let me on whatsapp
+
 export const useGetCategoryProducts = (name)=> {
 
 // fetch the products and the various categories
@@ -67,3 +66,23 @@ return useQuery(['productsCategories', name],()=> fetchCategories(name), {
 };
 
 // lines 60 and line 63   why two return??
+
+
+export const getCategoryProducts = async (category) =>{
+    try {
+        const result = await api.get(`/product/category/${category}`)
+        return result.data
+    } catch (error) {
+        console.log("an issue happened while geting categorie data ", error)
+    }
+}
+
+export const getAllProducts = async () =>{
+    try {
+        const result = await api.get(`/product`)
+        return result.data
+    } catch (error) {
+        console.log("error in getting all data", error)
+        return error
+    }
+}
