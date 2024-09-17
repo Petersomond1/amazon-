@@ -29,3 +29,14 @@ export const GetFeaturedIds = async(req, res) => {
     }
 
 }
+
+
+// Get all users
+export const getAllUsers = async (req, res) => {
+    try {
+        const [rows] = await db.execute('SELECT * FROM users');
+        res.status(200).json(rows);
+    } catch (error) {
+        handleError(error, req, res);
+    }
+};

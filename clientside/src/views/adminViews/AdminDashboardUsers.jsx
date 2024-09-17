@@ -25,14 +25,14 @@ import { fakeData, usStates } from "./makeOrdersData";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 // import api from "../../services/apiConfig";
-// import {
-//   useCreateUser,
-//   useGetUsers,
-//   useUpdateUser,
-//   useDeleteUser,
-//   validateRequired,
-//   validateUser,
-// } from "../../services/DashUserService";
+import {
+  useCreateUser,
+  useGetUsers,
+ useUpdateUser,
+  useDeleteUser,
+  validateRequired,
+   validateUser,
+} from "../../services/AdminDashboardUserService";
 
 const AdminDashboardUsers = () => {
   //call CREATE hook
@@ -45,7 +45,7 @@ const AdminDashboardUsers = () => {
     isFetching: isFetchingUsers,
     isLoading: isLoadingUsers,
   } = useGetUsers();
-  console.log("ham lusers", fetchedUsers?.data);
+//   console.log("ham lusers", fetchedUsers?.data);
 
   //call UPDATE hook
   const { mutateAsync: updateUser, isPending: isUpdatingUser } =

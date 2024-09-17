@@ -1,0 +1,21 @@
+.card{
+    width: 450px;
+    height: 100px;
+    border: 1px solid mediumpurple;
+    margin: 5px;
+    padding: 5px;
+    box-shadow: darkorange;
+    display: flex;
+    /* flex-wrap: wrap; */
+    
+}
+.Card-img {
+    margin: 5px;
+    border: 1px solid rgb(255, 0, 200);
+    height: 50px;
+}
+
+.card-second{
+    margin: 5px;
+    border: 1px solid green;
+}
