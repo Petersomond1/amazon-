@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "primereact/button";
 import { Carousel } from "primereact/carousel";
 import { Tag } from "primereact/tag";
-import "../styles/card.css";
+import "../style/card.css";
 import { Link } from "react-router-dom";
 
 const Card = ({ fourthProductSet }) => {

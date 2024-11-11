@@ -6,8 +6,8 @@ import HomeCategories from "../components/common/HomeCategories.jsx";
 import HomeListCard1 from "../components/common/HomeListCard1.jsx";
 // import ListCard2 from "../components/common/ListCard2.jsx";
 import { fetchIdsofProducts} from "../services/homeService.js";
-// import ProductsCards from "../components/common/ProductCards.jsx";
-// import FourthView from "./FourthView.jsx";
+import ProductsCards from "../components/common/ProductCards.jsx";
+import FourthView from "../components/common/FourthView.jsx"
 import { useAuth } from "../context/AuthContext.jsx";
 
 const Home = () => {
@@ -50,7 +50,7 @@ const Home = () => {
         <HomeListCard1 thirdProductSet={thirdProductSet} />
       </div>
 
-      {/* 
+      
       <div className="flex justify-center items-center flex-wrap gap-10 mt-10 relative top-[-180px] -translate-y-1/8 ">
         <ProductsCards secondProductSet={secondProductSet} />
       </div>
@@ -61,7 +61,7 @@ const Home = () => {
       <div className="px-8 py-2 relative top-[-180px] -translate-y-1/8">
     
         <FourthView fourthProductSet={fifthProductSet} />
-      </div> */}
+      </div> 
     </div>
   );
 };
