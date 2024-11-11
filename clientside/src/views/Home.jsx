@@ -23,14 +23,14 @@ const Home = () => {
   const firstProductSet = products && products[0] ? products[0] : [];
   const secondProductSet = products && products[1] ? products[1] : [];
   const thirdProductSet = products && products[2] ? products[2] : [];
-  const fourthProductSet = products && products[3] ? products[3][0] : [];
+  const fourthProductSet = products && products[3] ? products[3] : [];
   const fifthProductSet = products && products[4] ? products[4][0] : [];
   const sixthProductSet = products && products[5] ? products[5][0] : [];
 
  // console.log("here is the products ",firstProductSet)
   //console.log("here is the products second",secondProductSet)
   //console.log("here is the products thirdProductSet",thirdProductSet)
-  // console.log("here is the products fourthProductSet ",fourthProductSet)
+  console.log("here is the products fourthProductSet ",fourthProductSet)
   //console.log("here is the products fifthProductSet",fifthProductSet)
   //console.log("here is the products sixthProductSet",sixthProductSet)
 
