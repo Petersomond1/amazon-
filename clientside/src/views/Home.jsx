@@ -42,7 +42,7 @@ const Home = () => {
       <div className="border border-[4px] border-blue-500 h-96 w-screen-full">
         <HomeHeader firstProductSet={firstProductSet} />
       </div> 
-
+      {/*
       <div className="relative top-[184px] transform -translate-y-1/2  z-20 flex justify-center items-center gap-10 flex-wrap ">
         <HomeCategories categories={secondProductSet} />
       </div>
@@ -61,7 +61,8 @@ const Home = () => {
       <div className="px-8 py-2 relative top-[-180px] -translate-y-1/8">
     
         <FourthView fourthProductSet={fifthProductSet} />
-      </div> 
+      </div>  
+      */}
     </div>
   );
 };
