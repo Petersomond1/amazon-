@@ -40,36 +40,35 @@ const router = createBrowserRouter([
   { path: "login", element: <Login /> },
   { path: "register", element: <Register /> },
 
-    {
-      path: "/",
-      element: <DefaultLayout/>,
-      children: [
-        {index: true, element: <Home/>},
-        { path: "all-products", element: <AllProducts /> },
-        { path: "category/:name", element: <Products /> }, //missing sidebar design
-        { path: "product/:name", element: <ProductDetail /> }, 
-        { path: "cart", element: <Cart /> },
-        { path: "order", element: <Orders /> },
-        { path: "profile", element: <Profile /> },
-
-        { path: "shipping", element: ( 
+  {
+    path: "/",
+    element: <DefaultLayout/>,
+    children: [
+      {index: true, element: <Home/>},
+      { path: "all-products", element: <AllProducts /> },
+      { path: "category/:name", element: <Products /> }, //missing sidebar design
+      { path: "product/:name", element: <ProductDetail /> }, 
+      { path: "cart", element: <Cart /> },
+      { path: "order", element: <Orders /> },
+      { path: "profile", element: <Profile /> },
+      { path: "shipping", element: ( 
+          <PrivateRoute>
+            <ShippingView />
+          </PrivateRoute>
+        ) },
+        {
+          path: "checkout",
+          element: (
             <PrivateRoute>
-              <ShippingView />
+              <Elements stripe={stripePromise}>
+                <Checkout />
+              </Elements>
             </PrivateRoute>
-          ) },
+          ),
+        },  
+      ]
+  },
 
-          {
-            path: "checkout",
-            element: (
-              <PrivateRoute>
-                <Elements stripe={stripePromise}>
-                  <Checkout />
-                </Elements>
-              </PrivateRoute>
-            ),
-          },  
-       ]
-    },
     {
       path: "/AdminDashboard",
       element: <DashLayout/>,

@@ -75,17 +75,11 @@ function HomeHeader({ firstProductSet }) {
     prevArrow: <SamplePrevArrow />,
   };
 
+  console.log("slider data ", firstProductSet)
 
   return (
-    <div className="slider-container m-10 border border-[2px] border-green-500 ">
-      <Slider {...settings}>
-        {firstProductSet?.map((item, index) => (
-          <div key={index} className="relative">
-            {index ==1 && console.log("here is the item ", item)}
-            <img src={item.image} alt={`slide-${index}`} className="w-full z-0" />
-          </div>
-        ))}
-      </Slider>
+    <div className="slider-container m-10  ">
+      WRITE AND MAKE A SLIDER FOR IMAGES HERE
     </div>
   );
 }
