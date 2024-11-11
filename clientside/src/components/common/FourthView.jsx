@@ -24,7 +24,7 @@ function SamplePrevArrow(props) {
   );
 }
 
-const FourthView = ({ fourthProductSet }) => {
+const FourthView = ( {fourthProductSet} ) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -39,10 +39,13 @@ const FourthView = ({ fourthProductSet }) => {
     },
   };
 
+ console.log("fourth data ", fourthProductSet)
+ console.log("fourth data ", fourthProductSet?.fourthProductSet)
+
   return (
     <div className="">
       <Slider {...settings}>
-        {fourthProductSet.map((item) => (
+        {fourthProductSet?.fourthProductSet?.map((item) => (
           <FourthDataCard
             key={item.id}
             descriptoin={item.descriptoin}
