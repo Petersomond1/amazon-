@@ -39,8 +39,7 @@ const FourthView = ( {fourthProductSet} ) => {
     },
   };
 
- console.log("fourth data ", fourthProductSet)
- console.log("fourth data ", fourthProductSet?.fourthProductSet)
+
 
   return (
     <div className="">

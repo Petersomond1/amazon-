@@ -2,7 +2,7 @@ import React from "react";
 import "../style/layout.css";
 
 const HeaderFilter = ({ sortOption, handleSortData }) => {
-  console.log("ha ", sortOption);
+
   return (
     <div className="Filter-header">
       <p className="some-stuff">1-48 of 770 results for "drone"</p>

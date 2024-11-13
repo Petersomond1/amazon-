@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   MaterialReactTable,
   createMRTColumnHelper,
@@ -9,7 +9,8 @@ import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { mkConfig, generateCsv, download } from "export-to-csv";
 import { useQuery } from "react-query";
 import api from "../../services/apiConfig";
-
+import AddIcon from '@mui/icons-material/Add';
+import NewProductModal from "../../components/NewProduct";
 const columnHelper = createMRTColumnHelper();
 
 const columns = [
@@ -62,6 +63,12 @@ const AdminDashboardProducts = () => {
     download(csvConfig)(csv);
   };
 
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+  
   const handleExportData = () => {
     const csv = generateCsv(csvConfig)(products);
     download(csvConfig)(csv);
@@ -114,6 +121,7 @@ const AdminDashboardProducts = () => {
         </Button>
       </Box>
     ),
+  
   });
 
   if (isLoading) {
@@ -124,7 +132,22 @@ const AdminDashboardProducts = () => {
     return <div>Error fetching products: {error.message}</div>;
   }
 
-  return <MaterialReactTable table={table} />;
+  return (
+    <div>
+    <button
+      onClick={handleOpenModal}
+      className="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600"
+    >
+      Create New Product
+    </button>
+
+    <NewProductModal isOpen={isModalOpen} onClose={handleCloseModal} />
+
+   7
+    <MaterialReactTable table={table} />
+    *
+  </div>
+  );
 };
 
 export default AdminDashboardProducts;

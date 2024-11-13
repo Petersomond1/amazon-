@@ -25,7 +25,7 @@ const HomeListCard1 = ({ thirdProductSet }) => {
     },
   };
 
-  thirdProductSet?.map((item)=>console.log("here is image link", item.image))
+  //thirdProductSet?.map((item)=>console.log("here is image link", item.image))
 
   return (
     <Carousel
