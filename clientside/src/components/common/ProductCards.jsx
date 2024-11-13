@@ -4,7 +4,7 @@ import "../style/homeCategories.css";
 import { Link } from "react-router-dom";
 
 const ProductsCards = ({ secondProductSet }) => {
-  console.log("ham second ", secondProductSet);
+
   return secondProductSet?.map((product, index) => (
     <div className="cardid" key={index}>
       <h3>{product.name}</h3>

@@ -20,7 +20,6 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     try {
       const response = await api.get('/auth/checkAuth');
-      console.log("here is tshe response from teh authContext", response.data)
       setUser(response.data.user);
       setError(null);
     } catch (error) {

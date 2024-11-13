@@ -28,9 +28,9 @@ const Home = () => {
   const sixthProductSet = products && products[5] ? products[5][0] : [];
 
  // console.log("here is the products ",firstProductSet)
-  //console.log("here is the products second",secondProductSet)
+  console.log("here is the products second",secondProductSet)
   //console.log("here is the products thirdProductSet",thirdProductSet)
-  console.log("here is the products fourthProductSet ",fourthProductSet)
+  //console.log("here is the products fourthProductSet ",fourthProductSet)
   //console.log("here is the products fifthProductSet",fifthProductSet)
   //console.log("here is the products sixthProductSet",sixthProductSet)
 
@@ -39,13 +39,14 @@ const Home = () => {
   return (
     <div className="bg-[#E3E6E6]">
       
-      <div className="border border-[4px] border-blue-500 h-96 w-screen-full">
+      <div className="h-3/6 w-screen-full">
         <HomeHeader firstProductSet={firstProductSet} />
       </div> 
-      {/*
-      <div className="relative top-[184px] transform -translate-y-1/2  z-20 flex justify-center items-center gap-10 flex-wrap ">
+      
+      <div className="border-2 border-blue-500 flex justify-center items-center gap-10 flex-wrap ">
         <HomeCategories categories={secondProductSet} />
       </div>
+      {/*
       <div className="-translate-y-1/2">
         <HomeListCard1 thirdProductSet={thirdProductSet} />
       </div>

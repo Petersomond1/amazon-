@@ -1,6 +1,6 @@
 // src/services/productService.js
 import api from './apiConfig';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
 
 
@@ -85,4 +85,20 @@ export const getAllProducts = async () =>{
         console.log("error in getting all data", error)
         return error
     }
+}
+
+//custom hook to create new products
+export function useCreateProduct(onSuccess,onError){
+    const createProduct = async (data)=>{
+        try {
+            const result = await api.post(`/product/create`, data)
+        } catch (error) {
+            throw new Error
+        }
+    }
+
+return useMutation((data) => createProduct(data),{
+    onSuccess,
+    onError,
+})
 }
