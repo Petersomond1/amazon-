@@ -74,7 +74,6 @@ const AdminDashboardProducts = () => {
     download(csvConfig)(csv);
   };
 
-  console.log("here's the products ", products);
   const table = useMaterialReactTable({
     columns,
     data: products || [], // Pass the fetched data here, or an empty array while loading

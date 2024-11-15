@@ -26,6 +26,7 @@ try {
 }
 
 export const createNewProduct = async (req,res,next) =>{
+    console.log("request after uplaod ", req.body)
     try {
         const newProduct = await createProductService(req.body)
     } catch (error) {
