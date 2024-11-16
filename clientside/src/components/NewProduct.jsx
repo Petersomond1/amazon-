@@ -16,7 +16,14 @@ const NewProductModal = ({ isOpen, onClose }) => {
 
   const onSubmit = async (data) => {
     console.log("here is data", data)
-    await createProduct(data)
+
+    const formData = new FormData()
+    formData.append("name", data.name)
+    formData.append("price", data.price)
+    formData.append("description", data.description)
+    formData.append("image", data.image[0])
+    //formData.append("file", data.image)
+    await createProduct(formData)
     reset();
     onClose();
   };
