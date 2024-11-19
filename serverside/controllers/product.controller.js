@@ -1,4 +1,5 @@
 import pool from "../config/db.js"
+import uploadMiddleware from "../middlewares/uploadImage.js"
 import { createProductService } from "../services/productServices.js"
 
 export const fetchAllProducts = async (req,res, next) =>{
@@ -26,9 +27,15 @@ try {
 }
 
 export const createNewProduct = async (req,res,next) =>{
-    console.log("request after uplaod ", req.body)
     try {
-        const newProduct = await createProductService(req.body)
+        if(!req.file){
+            return res.status(400).json({message: "Please upload an image"})
+        }
+
+        // call the s3 middleware
+        const {fileUrl} = await uploadMiddleware(req.file)
+
+       // const newProduct = await createProductService(req.body)
     } catch (error) {
         next(error)
     }
