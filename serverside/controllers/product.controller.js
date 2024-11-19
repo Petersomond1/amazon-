@@ -31,11 +31,10 @@ export const createNewProduct = async (req,res,next) =>{
         if(!req.file){
             return res.status(400).json({message: "Please upload an image"})
         }
-
         // call the s3 middleware
         const {fileUrl} = await uploadMiddleware(req.file)
-
-       // const newProduct = await createProductService(req.body)
+       const newProduct = await createProductService(req.body, fileUrl)
+        res.status(201).json({message: "Product created successfully"})
     } catch (error) {
         next(error)
     }
