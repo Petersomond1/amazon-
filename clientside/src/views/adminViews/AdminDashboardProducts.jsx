@@ -57,6 +57,7 @@ const AdminDashboardProducts = () => {
     error,
   } = useQuery("products", fetchProducts);
 
+  console.log("products", products);
   const handleExportRows = (rows) => {
     const rowData = rows.map((row) => row.original);
     const csv = generateCsv(csvConfig)(rowData);
