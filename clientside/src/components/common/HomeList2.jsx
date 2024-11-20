@@ -3,7 +3,12 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
 
-const HomeListCard1 = ({ thirdProductSet }) => {
+const HomeListCard2 = ({ sixthProductSet }) => {
+  // Ensure sixthProductSet is defined and has items before rendering
+  if (!sixthProductSet || sixthProductSet.length === 0) {
+    return <div>No products available.</div>; // Optional fallback UI
+  }
+
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -24,8 +29,8 @@ const HomeListCard1 = ({ thirdProductSet }) => {
   };
 
   return (
-    <div className="container mx-auto py-4">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6">Featured Products</h2>
+    <div className="container mx-auto py-10">
+      <h2 className="text-3xl font-bold text-gray-800 mb-6">Best Sellers</h2>
       <Carousel
         additionalTransfrom={0}
         arrows
@@ -42,7 +47,7 @@ const HomeListCard1 = ({ thirdProductSet }) => {
         showDots={false}
         swipeable
       >
-        {thirdProductSet?.map((product, index) => (
+        {sixthProductSet.map((product, index) => (
           <div
             key={index}
             className="p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
@@ -56,9 +61,13 @@ const HomeListCard1 = ({ thirdProductSet }) => {
             </Link>
             <div className="p-4">
               <h3 className="text-xl font-semibold text-gray-800">{product.name}</h3>
-              <p className="text-gray-600 text-sm mt-2">{product.description || "No description available."}</p>
+              <p className="text-gray-600 text-sm mt-2">
+                {product.description || "No description available."}
+              </p>
               <div className="mt-4 flex justify-between items-center">
-                <span className="text-lg font-bold text-blue-600">${product.price}</span>
+                <span className="text-lg font-bold text-blue-600">
+                  ${product.price}
+                </span>
                 <Link
                   to={`/product/${product.name}`}
                   className="text-blue-500 hover:text-blue-700 text-sm"
@@ -74,4 +83,4 @@ const HomeListCard1 = ({ thirdProductSet }) => {
   );
 };
 
-export default HomeListCard1;
+export default HomeListCard2;

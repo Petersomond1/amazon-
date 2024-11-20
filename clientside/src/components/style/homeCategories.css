@@ -1,8 +1,8 @@
 
 .cardid {
     /* width: 1fr;  */
-    height: 400px;
-    width: 22%;
+    height: 30rem;
+    width: 27rem;
     overflow: hidden;
     margin-bottom: 10px;
     background-color: white;
@@ -11,7 +11,9 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 5px; 
-    
+    margin-top:-15%;
+    z-index: 1;
+    border:1px solid green;
    
 }
 
