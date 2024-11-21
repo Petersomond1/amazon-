@@ -1,5 +1,5 @@
 import React from "react";
-import ProductsSidebar from "../components/common/ProductsSidebar";
+import ProductsSidebar from "../components/common/FilterSideBar";
 import "./style/main.css";
 import { useGetCategoryProducts } from "../services/productServices";
 import { useParams } from "react-router-dom";

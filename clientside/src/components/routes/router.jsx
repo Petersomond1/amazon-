@@ -12,7 +12,6 @@ import DashLayout from "../../views/layouts/DashLayout";
 import Home from "../../views/Home";
 import AllProducts from "../../views/AllProducts";
 import ProductLayout from "../../views/layouts/ProductLayout";
-import ProductsCategories from "../../views/ProductsCategories";
 import AdminDashboardProducts from "../../views/adminViews/AdminDashboardProducts"
 import AdminDashboardSales from "../../views/adminViews/AdminDashboardSales";
 import AdminDashboardOrders from "../../views/adminViews/AdminDashboardOrders";
@@ -23,7 +22,7 @@ import AdminDashboardInbox from "../../views/adminViews/AdminDashboardInbox";
 import Register from "../../views/Register";
 import Login from "../../views/LOgin";
 import ProductDetail from "../../views/defaultviews/ProductDetail";
-import Products from "../../views/defaultviews/Products"
+import CategoryProducts from "../../views/defaultviews/CategoryProducts.jsx"
 import Cart from "../../views/Cart"
 import Orders from "../../views/Orders"
 import Profile from "../../views/Profile"
@@ -46,7 +45,7 @@ const router = createBrowserRouter([
     children: [
       {index: true, element: <Home/>},
       { path: "all-products", element: <AllProducts /> },
-      { path: "category/:name", element: <Products /> }, //missing sidebar design
+      { path: "category/:name", element: <CategoryProducts /> }, //missing sidebar design
       { path: "product/:name", element: <ProductDetail /> }, 
       { path: "cart", element: <Cart /> },
       { path: "order", element: <Orders /> },

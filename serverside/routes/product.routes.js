@@ -13,7 +13,7 @@ router.post("/create",
     
 router.get('/', fetchAllProducts);
 
-router.get('/categories/:name', fetchAllProductsByCategories);
+router.get('/category/:name', fetchAllProductsByCategories);
 
 
 
