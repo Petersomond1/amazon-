@@ -1,6 +1,5 @@
-import query from '../../config/queries.js'
-import { CustomError } from "../../utils/customErrorHandler"
-
+import { query } from '../../config/queries.js';
+import { CustomError } from '../../utils/customErrorHandler.js'
 
 export  async function updateProductsIdsInHomePage(data){
     try {

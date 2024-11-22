@@ -1,6 +1,6 @@
 import express from 'express';
 import { body, param } from 'express-validator';
-import { createOrder, getAllOrdersForUser, getOrderById, updateOrder, deleteOrder } from '../controllers/order.controllers.js';
+import { createOrder, getAllOrdersForUser, getOrderById, updateOrder, deleteOrder } from '../app/controllers/order.controllers.js';
 import authenticate from '../middlewares/authenticate.js';
 
 const router = express.Router();

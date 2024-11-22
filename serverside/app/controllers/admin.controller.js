@@ -1,6 +1,5 @@
 
 import { getAllUsersService, getFeaturedIdsService, updateProductsIdsInHomePage } from '../services/adminServices.js';
-import CustomError from '../utils/handleError.js';
 
 // Select productsid to feature
 export const selectProductsid = async (req, res, next) => {

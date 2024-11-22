@@ -1,5 +1,6 @@
-import query from '../config/db.js';
-import CustomError from '../utils/handleError.js';
+
+import { query } from '../../config/queries.js';
+import { CustomError } from '../../utils/customErrorHandler.js';
 import { createToken } from '../../utils/userUtilities.js';
 
 export async function registerService(data){

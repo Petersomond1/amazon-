@@ -1,5 +1,4 @@
-import db from '../config/db.js';
-import handleError from '../utils/handleError.js';
+import db from '../../config/db.js';
 import { validationResult } from 'express-validator';
 
 // Create an order
@@ -40,7 +39,6 @@ export const createOrder = async (req, res) => {
 
         res.status(201).json(order[0]);
     } catch (error) {
-        handleError(error, req, res);
     }
 };
 
@@ -52,7 +50,6 @@ export const getAllOrdersForUser = async (req, res) => {
 
         res.status(200).json(orders);
     } catch (error) {
-        handleError(error, req, res);
     }
 };
 
@@ -68,7 +65,6 @@ export const getOrderById = async (req, res) => {
 
         res.status(200).json(orders[0]);
     } catch (error) {
-        handleError(error, req, res);
     }
 };
 
@@ -96,7 +92,6 @@ export const updateOrder = async (req, res) => {
 
         res.status(200).json(updatedOrder[0]);
     } catch (error) {
-        handleError(error, req, res);
     }
 };
 
@@ -113,6 +108,5 @@ export const deleteOrder = async (req, res) => {
 
         res.status(200).json({ message: 'Order deleted successfully' });
     } catch (error) {
-        handleError(error, req, res);
     }
 };

@@ -1,4 +1,4 @@
-import { query } from "../config/queries.js";
+import { query } from "../../config/queries.js";
 
 export const createProductService = async (data, imageUrl) => {
     try {

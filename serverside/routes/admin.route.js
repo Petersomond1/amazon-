@@ -1,5 +1,5 @@
 import express from "express";
-import { selectProductsid, GetFeaturedIds, getAllUsers } from "../controllers/admin.controller.js";
+import { selectProductsid, GetFeaturedIds, getAllUsers } from "../app/controllers/admin.controller.js";
 import authenticate from '../middlewares/authenticate.js';
 import authorize from '../middlewares/authorize.js';
 

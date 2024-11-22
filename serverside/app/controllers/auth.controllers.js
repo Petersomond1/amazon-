@@ -1,5 +1,5 @@
-import { forgotPasswordService, loginService, registerService } from "../services/authServices";
-import { sendEmail } from "../utils/sendEmail.js";
+import { forgotPasswordService, loginService, registerService } from "../services/authServices.js";
+import sendEmail  from "../../utils/sendEmail.js";
 
 // Register user
 export const register = async (req, res, next) => {

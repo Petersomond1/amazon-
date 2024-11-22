@@ -1,5 +1,4 @@
-import db from '../config/db.js';
-import handleError from '../utils/handleError.js';
+import db from '../../config/db.js';
 import { validationResult } from 'express-validator';
 
 // Add an item to the cart
@@ -26,7 +25,6 @@ export const addItemToCart = async (req, res) => {
 
         res.status(201).json({ message: 'Item added to cart' });
     } catch (error) {
-        handleError(error, req, res);
     }
 };
 
@@ -39,7 +37,6 @@ export const getCartItems = async (req, res) => {
         
         res.status(200).json(rows);
     } catch (error) {
-        handleError(error, req, res);
     }
 };
 
@@ -62,7 +59,6 @@ export const updateCartItemQuantity = async (req, res) => {
 
         res.status(200).json({ message: 'Cart item quantity updated' });
     } catch (error) {
-        handleError(error, req, res);
     }
 };
 
@@ -79,7 +75,6 @@ export const removeCartItem = async (req, res) => {
 
         res.status(200).json({ message: 'Cart item removed' });
     } catch (error) {
-        handleError(error, req, res);
     }
 };
 

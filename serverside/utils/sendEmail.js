@@ -1,5 +1,5 @@
 import nodeMailer from 'nodemailer';
-import CustomError from '../utils/CustomError.js';
+import {CustomError} from './customErrorHandler.js';
 
 const sendEmail = async (userEmail) => {
     try {

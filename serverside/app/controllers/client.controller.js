@@ -1,4 +1,4 @@
-import db from '../config/db.js'
+import db from '../../config/db.js'
 
     export const getHomeProducts = async (req, res) =>{
         //when we recieve a request from the frontend , the data can be in different places 
