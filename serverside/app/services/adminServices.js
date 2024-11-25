@@ -17,7 +17,7 @@ export  async function updateProductsIdsInHomePage(data){
 
 export async function getFeaturedIdsService(){
     try {
-        const [rows] = await query("SELECT * FROM idstofeature");
+        const rows = await query("SELECT * FROM idstofeature");
         return rows;
     } catch (error) {
         throw new CustomError("Error fetching featured ids", 500, error)

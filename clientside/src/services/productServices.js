@@ -40,7 +40,7 @@ export const useFetchProductDetails = (productId) => {
 
     // Function to fetch a single product detail
     const fetchProductDetails = async (productId) => {
-        const response = await api.get(`/products/${productId}`);
+        const response = await api.get(`/product/${productId}`);
         return response.data;
     };
     return useQuery(['productDetails', productId], () => fetchProductDetails(productId), {

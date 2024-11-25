@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ArrowDropDownOutlinedIcon from "@mui/icons-material/ArrowDropDownOutlined";
 import { allItems } from "../../constants";
 import TopHeader from "../../components/common/TopHeader"
-//import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import api from "../../services/apiConfig";
 
 const Navbar = ({ user, loading }) => {
@@ -23,6 +23,7 @@ const Navbar = ({ user, loading }) => {
   const onSuccess = (data) => {
     navigate("/all-products", { state: { results: data } });
   };
+  const products = useSelector((state) => state.cart.items);
 
   const onError = (error) => {
     console.error("Search failed: ", error);
@@ -182,9 +183,9 @@ const Navbar = ({ user, loading }) => {
                 className="absolute text-xs top-0 left-6 font-semibold p-1 h-4 bg-[#f3a847]
               text-amazon_blue rounded-full flex justify-center items-center"
               >
-               {/*
+               
                 {products.length > 0 ? products.length : 0}
-                 */}
+                 
               </span>
             </p>
           </div>

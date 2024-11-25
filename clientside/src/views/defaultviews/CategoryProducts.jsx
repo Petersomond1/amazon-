@@ -2,7 +2,7 @@ import React from "react";
 import FilterSideBar from "../../components/common/FilterSideBar";
 import { useQuery } from "react-query";
 import { getCategoryProducts } from "../../services/productServices";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CategoryProducts = () => {
   const { name } = useParams();
@@ -34,6 +34,7 @@ const CategoryProducts = () => {
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {data?.map((item) => (
+            <Link to={`/product/${item.id}/${item.name}`}>
             <div
               key={item.id}
               className="flex flex-col bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl"
@@ -55,6 +56,7 @@ const CategoryProducts = () => {
                 <p className="text-gray-700 line-clamp-2">{item.description}</p>
               </div>
             </div>
+            </Link>
           ))}
         </div>
       </div>

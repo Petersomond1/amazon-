@@ -4,8 +4,10 @@ import sendEmail  from "../../utils/sendEmail.js";
 // Register user
 export const register = async (req, res, next) => {
     try {
-        await registerService(req.body);
-        await sendEmail(user.email);
+        const token = await registerService(req.body);
+        console.log(token)
+        await sendEmail(req.body.email);
+        console.log("register and sent email done !")
         res.cookie('token', token, { httpOnly: true });
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {

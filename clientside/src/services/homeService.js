@@ -9,7 +9,6 @@ export async function fetchIdsofProducts() {
     try {
         const response = await api.get('/admin/get-featured-ids');
         const idsArray = response.data;
-
         // Iterate over the idsArray and conditionally fetch data
         const requests = idsArray.map((item, index) => {
 

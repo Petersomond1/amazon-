@@ -7,7 +7,6 @@ import { useAuth } from "../../context/AuthContext";
 
 const DefaultLayout = () => {
   const { user, loading, error, checkAuth } = useAuth();
-  console.log("the user data is here ", user)
   const [sortOption, setSortOption] = useState("");
 
   const handleSortData = (e) => {

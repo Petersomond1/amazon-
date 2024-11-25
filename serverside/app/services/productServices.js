@@ -1,4 +1,5 @@
 import { query } from "../../config/queries.js";
+import { CustomError } from '../../utils/customErrorHandler.js'
 
 export const createProductService = async (data, imageUrl) => {
     try {
@@ -18,3 +19,21 @@ export const createProductService = async (data, imageUrl) => {
         throw error; // Re-throw the error for proper error handling upstream
     }
 };
+
+
+export const getProductDetailsById = async (id) => {
+    try {
+        const sql = "SELECT * FROM products WHERE id = ?;";
+        const rows = await query(sql, [id]);
+
+        if (rows.length === 0) {
+            throw new CustomError("Product not found", 404);
+        }
+
+        return rows[0];
+    } catch (error) {
+        console.error("Error fetching product details:", error.message);
+        throw error;
+    }
+}
+

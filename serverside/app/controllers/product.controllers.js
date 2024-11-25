@@ -1,6 +1,6 @@
 import pool from "../../config/db.js"
 import uploadMiddleware from "../../middlewares/uploadImage.js"
-import { createProductService } from "../services/productServices.js"
+import { createProductService, getProductDetailsById } from "../services/productServices.js"
 import { validationResult } from 'express-validator';
 
 export const fetchAllProducts = async (req,res, next) =>{
@@ -98,14 +98,7 @@ export const getAllProducts = async (req, res) => {
 export const getProductById = async (req, res) => {
     try {
         const { id } = req.params;
-
-        const [rows] = await db.execute('SELECT * FROM products WHERE id = ?', [id]);
-        const product = rows[0];
-
-        if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
-        }
-
+        const product = await getProductDetailsById(id)
         res.status(200).json(product);
     } catch (error) {
         

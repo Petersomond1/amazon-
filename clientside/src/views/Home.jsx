@@ -16,7 +16,6 @@ const Home = () => {
     queryKey: "fetchIdsofProducts",
     queryFn: fetchIdsofProducts,
   });
-
   // Data extraction from fetched products
   const firstProductSet = products && products[0] ? products[0] : [];
   const secondProductSet = products && products[1] ? products[1] : [];

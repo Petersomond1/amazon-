@@ -20,7 +20,7 @@ import AdminDashboardShipping from "../../views/adminViews/AdminDashboardShippin
 import AdminDashboardCalendar from "../../views/adminViews/AdminDashboardCalendar";
 import AdminDashboardInbox from "../../views/adminViews/AdminDashboardInbox";
 import Register from "../../views/Register";
-import Login from "../../views/LOgin";
+import Login from "../../views/Login";
 import ProductDetail from "../../views/defaultviews/ProductDetail";
 import CategoryProducts from "../../views/defaultviews/CategoryProducts.jsx"
 import Cart from "../../views/Cart"
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
       {index: true, element: <Home/>},
       { path: "all-products", element: <AllProducts /> },
       { path: "category/:name", element: <CategoryProducts /> }, //missing sidebar design
-      { path: "product/:name", element: <ProductDetail /> }, 
+      { path: "product/:id/:name", element: <ProductDetail /> }, 
       { path: "cart", element: <Cart /> },
       { path: "order", element: <Orders /> },
       { path: "profile", element: <Profile /> },

@@ -6,7 +6,7 @@ import authorize from '../middlewares/authorize.js';
 const router = express.Router();
 
 router.post('/submitid', authenticate, authorize(['admin']), selectProductsid)
-router.get('/get-featured-ids', authenticate, authorize(['admin']), GetFeaturedIds)
+router.get('/get-featured-ids',  GetFeaturedIds)
 router.get('/users',authenticate, authorize(['admin']),getAllUsers);
 
 

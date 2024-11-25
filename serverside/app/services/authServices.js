@@ -2,17 +2,17 @@
 import { query } from '../../config/queries.js';
 import { CustomError } from '../../utils/customErrorHandler.js';
 import { createToken } from '../../utils/userUtilities.js';
+import bcrypt from 'bcryptjs';
 
 export async function registerService(data){
     try {
         const { email, password, name } = data;
         const hashedPassword = await bcrypt.hash(password, 10);
-    
+
         const registerQuery = 'INSERT INTO users ( email, passwordHash, name) VALUES ( ?, ?, ?)';
         const values = [ email, hashedPassword, name];
     
-        const [result] = await query(registerQuery, values);
-    
+        const result = await query(registerQuery, values);
         const user = {
             id: result.insertId,
             name:name,
@@ -20,7 +20,6 @@ export async function registerService(data){
             role : 'client'
         };
         const token = createToken(user);
-
         return token;
     } catch (error) {
         throw new CustomError("User not registered", 400)

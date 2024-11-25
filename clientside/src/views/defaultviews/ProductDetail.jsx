@@ -1,144 +1,109 @@
-import "../style/productDetails.css";
 import React, { useState } from "react";
-import "../../assets/data.json";
-import VerticalCarousel from "../../components/common/VerticalCarousel.jsx";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import imag from "../../assets/images/326adee0c0ab562d6d5b3ce0d4503ea8.jpg";
-import { useForm, Controller } from "react-hook-form";
-import api from "../../services/apiConfig.js";
+import { addItem } from "../../redux/slices/cartSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { useFetchProductDetails } from "../../services/productServices";
 
-const ProductDetail = () => {
-  const [quantity, setQuantiy] = useState("");
-  const [buttonType, setButtonType] = useState("");
-  const { register, control, handleSubmit, formState: errors } = useForm();
+const ProductDetails = () => {
+  const { id } = useParams();
+  const { data: productData, isLoading, isError } = useFetchProductDetails(id);
+  const [currentImage, setCurrentImage] = useState(0);
 
-  const handleChange = (event) => {
-    setQuantiy(event.target.value);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  if (isLoading) return <p className="text-center mt-8">Loading...</p>;
+  if (isError) return <p className="text-center mt-8 text-red-500">Error loading product.</p>;
+
+  const { name, description, price, sale_price, image, image_a, image_b, image_c, quantity_InStock, soldby } = productData;
+
+  const images = [image, image_a, image_b, image_c];
+
+  const handleAddToCart = () => {
+    dispatch(addItem({ id, name, price }));
   };
 
-  const onSubmit = async (data) => {
-    data.id = 13;
-    if (buttonType === "cart") {
-      try {
-        const result = await api.post("/cart/", data);
-      } catch (error) {
-        console.log("issue while adding to cart", error);
-      }
-    } else {
-      try {
-        // const result = await api.post("/order");
-      } catch (error) {
-        console.log("issue while adding to buy", error);
-      }
-    }
+
+
+  const handleBuy = () => {
+    navigate("/cart");
   };
 
   return (
-    <div className="product-detail-container">
-      <div className="left-container">
-        <div className="vertical-images">here</div>
-        <img src={imag} alt="it should be an image" className="left-image" />
-      </div>
-      <div className="middle-container">
-        <div className="upper-div">
-          <p className="details-title">
-            Corsair K70 RGB PRO Wired Mechanical Gaming Keyboard (Cherry MX RGB
-            Red Switches: Linear and Fast, 8,000Hz Hyper-Polling, PBT
-            Double-Shot PRO Keycaps, Soft-Touch Palm Rest) QWERTY, NA - Black
-          </p>
-          <p>
-            Visit the Corsair Store <br />
-            4.6 4.6 out of 5 stars 6,093 ratings | Search this page
-            <br />
-            1K+ bought in past month
-          </p>
-        </div>
-        <div className="under-upper-div">
-          <p>
-            <strong style={{ fontSize: "22px" }}>price 229$</strong>
-          </p>
-          <p>description</p>
-          <div className="list">
-            <span>some suf</span>
-            <span>another stuf</span>
-            <span>another other stuff</span>
-          </div>
-        </div>
-        <div className="after-lower-div">
-          <p>dra chniya</p>
-          <div className="span-div">
-            <span className="hedhi-span">first </span>
-            <span className="hedhi-span">Second </span>
-            <span className="hedhi-span">Third </span>
-          </div>
-          <p>This should be another data here in this form </p>
-          <p>
-            here it would be better if i add the design for the resting features
-            that mimic amazon{" "}
-          </p>
-          <p className="first-zones">zones </p>
-          <p className="first-zones">zones </p>
-          <p className="">different zones </p>
-        </div>
-        <div className="lower-div"></div>
-      </div>
-
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="right-container">
-          <h2>price</h2>
-          <italic>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum sit
-          </italic>
-          <p>deliver to tunis</p>
-          <strong>only 1 item left in stock</strong>
-
-          <div className="three-btn">
-            <FormControl sx={{ m: 1, minWidth: 200 }} size="small">
-              <InputLabel id="demo-select-small-label">Quantity</InputLabel>
-              <Controller
-                name="quantity"
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <Select
-                    labelId="demo-select-small-label"
-                    id="demo-select-small"
-                    {...field}
-                  >
-                    <MenuItem value={1}>1</MenuItem>
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                  </Select>
-                )}
+    <div className="container mx-auto px-4 py-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Image Carousel */}
+        <div className=" lg:col-span-1 flex  items-center">
+        <div className="flex flex-col items-center mt-4 space-y-2">
+            {images.map((img, index) => (
+              <img
+                key={index}
+                src={img}
+                alt={`Product Image ${index + 1}`}
+                className={`w-20 h-20 object-cover border ${currentImage === index ? "border-yellow-500" : "border-gray-300"} rounded cursor-pointer`}
+                onClick={() => setCurrentImage(index)}
               />
-            </FormControl>
-            <div className="detail-page-buttons">
-              <button
-                className="detail-btn first"
-                type="submit"
-                onClick={() => setButtonType("cart")}
-              >
-                add to cart
-              </button>
-              <button
-                className="detail-btn second"
-                type="submit"
-                onClick={() => setButtonType("buy")}
-              >
-                buy now
-              </button>
-            </div>
+            ))}
           </div>
-          <p>ships from</p>
-          <p>ships to</p>
-          <button className="detail-btn ">click here</button>
+          <div className="w-full h-96 flex items-center justify-center border border-gray-300 rounded-md">
+            <img
+              src={images[currentImage]}
+              alt={name}
+              className="object-contain h-96"
+            />
+          </div>
+
         </div>
-      </form>
+
+        {/* Product Info */}
+        <div className="lg:col-span-1">
+          <h1 className="text-2xl font-bold mb-4">{name}</h1>
+          <p className="text-gray-700 mb-4">{description}</p>
+          <p className="text-green-600 text-lg font-semibold">
+            {quantity_InStock > 0 ? "In Stock" : "Out of Stock"}
+          </p>
+          <p className="text-gray-700 mt-2">
+            Ships from and sold by <span className="text-blue-600">{soldby}</span>.
+          </p>
+          <hr className="my-4" />
+          <p className="text-2xl font-bold text-gray-800">${price}</p>
+          {sale_price > 0 && (
+            <p className="text-gray-500 line-through">${sale_price}</p>
+          )}
+          <p className="text-gray-700 mt-4">
+            Free delivery on orders over $50. Available at checkout.
+          </p>
+        </div>
+
+        {/* Purchase Section */}
+        <div className="lg:col-span-1 bg-gray-100 p-4 rounded-md">
+          <p className="text-gray-800 font-bold text-lg">${price}</p>
+          <p className="text-sm text-gray-600">+ $5.99 shipping</p>
+          <button
+            onClick={handleAddToCart}
+            className="bg-yellow-500 text-white py-2 px-4 rounded-md w-full mt-4 hover:bg-yellow-600"
+          >
+            Add to Cart
+          </button>
+          <button
+            onClick={handleBuy}
+            className="bg-orange-500 text-white py-2 px-4 rounded-md w-full mt-2 hover:bg-orange-600"
+          >
+            Buy Now
+          </button>
+          <p className="text-xs text-gray-500 mt-4">
+            Secure transaction. Ships from and sold by <span className="text-blue-600">{soldby}</span>.
+          </p>
+        </div>
+      </div>
+
+      {/* Product Description */}
+      <div className="mt-8">
+        <h2 className="text-xl font-bold mb-4">Product Description</h2>
+        <p className="text-gray-700">{description}</p>
+      </div>
     </div>
   );
 };
 
-export default ProductDetail;
+export default ProductDetails;

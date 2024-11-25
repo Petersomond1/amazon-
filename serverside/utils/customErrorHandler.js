@@ -1,6 +1,6 @@
 class CustomError extends Error{
     constructor(message, statusCode, data=null){
-        supper(message);
+        super(message);
         this.statusCode = statusCode;
         this.data = data
         this.isOperational = true

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./style/login.css";
 import { useForm } from "react-hook-form";
 import { useLoginUser } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {
@@ -11,10 +12,10 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
   const { mutateAsync } = useLoginUser();
 
   const onSubmit = (data) => {
-    console.log("Submitting:", data);
     mutateAsync(data);
   };
 
@@ -46,7 +47,7 @@ const Login = () => {
       </form>
       <div className="signin-footer">
         <p>New to Amazon?</p>
-        <button onClick={() => console.log("Navigate to registration")}>
+        <button onClick={() => navigate('/register')}>
           Create your Amazon account
         </button>
       </div>
