@@ -5,13 +5,12 @@ import { Link } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useAddToCart } from "../services/cartService";
 import { useOutletContext } from "react-router-dom";
-import { useAuthContext } from "../context/AuthContext";
+import {useAuth} from "../context/AuthContext";
 
 const Cart = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const products = useSelector((state) => state.cart.items);
-  const { user, loading } = useAuthContext();
-  console.log("this user is comming here ", user);
+  const { user, loading, error, checkAuth } = useAuth();
   const totalAmount = useSelector((state) => state.cart.totalAmount);
   const dispatch = useDispatch();
   const { mutateAsync } = useAddToCart();
@@ -44,7 +43,7 @@ const Cart = () => {
       return setTotalPrice(total);
     });
   }, [products]);
-
+  console.log("prodcuts", products);
   return (
     <div className="w-full bg-gray-100 p-4">
       {products.length > 0 ? (

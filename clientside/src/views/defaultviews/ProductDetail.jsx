@@ -20,7 +20,7 @@ const ProductDetails = () => {
   const images = [image, image_a, image_b, image_c];
 
   const handleAddToCart = () => {
-    dispatch(addItem({ id, name, price }));
+    dispatch(addItem({ id, name, price, image, quantity: 1 }));
   };
 
 
