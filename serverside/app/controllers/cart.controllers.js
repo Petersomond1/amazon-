@@ -7,7 +7,6 @@ export const addItemToCart = async (req, res) => {
     try {
         const user_id = req.user.id;
         const result = await addItemToCartService(req.body.products, user_id);
-        console.log("here")
 
         res.status(201).json({ message: 'Item added to cart' });
     } catch (error) {
