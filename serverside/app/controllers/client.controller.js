@@ -14,7 +14,6 @@ import db from '../../config/db.js'
         .split(',')
         .map(Number);
 
-        console.log("here is the ids ", ids);
         const sqlQuery = `
         SELECT p.* FROM products p WHERE p.id IN (?)
         `;
@@ -23,7 +22,6 @@ import db from '../../config/db.js'
         const homeProducts = result[0]
         res.status(200).json(homeProducts)
     }catch(error){
-        console.log("error in getting porducts for home page ", error.message)
         res.status(500).json(error)    }
        
     }
@@ -35,7 +33,6 @@ export const getHomeCategories = async (req, res) =>{
     .split(',')
     .map(Number);
 
-    console.log("ids ", ids)
     const sqlQuery = `
     SELECT c.* FROM category c WHERE c.id IN (?)
     `;
@@ -44,7 +41,6 @@ export const getHomeCategories = async (req, res) =>{
     const homeCategories = result[0]
     res.status(200).json(homeCategories)     
    } catch (error) {
-    console.log("error in getting categories for home page ", error.message)
     res.status(500).json(error)    
    }
 }

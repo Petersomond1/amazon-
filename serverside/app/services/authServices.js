@@ -30,7 +30,7 @@ export async function registerService(data){
 export async function loginService(data){
     try {
         const { email, password } = data;
-        const [rows] = await query('SELECT * FROM users WHERE email = ?', [email]);
+        const rows = await query('SELECT * FROM users WHERE email = ?', [email]);
         const user = rows[0];
     
         if (!user) {

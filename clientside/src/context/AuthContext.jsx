@@ -1,44 +1,38 @@
-import React, { createContext, useContext,useEffect, useState } from "react";
-import api from "../services/apiConfig";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import api from "../services/apiConfig"; // Assuming this is your axios setup or replace with fetch setup
+
 const AuthContext = createContext();
 
-// Custom hook to use the AuthContext
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
-
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(null)
-  const [error, setError] = useState(null)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const checkAuth = async () => {
     setLoading(true);
     try {
-      const response = await api.get('/auth/checkAuth');
+      const response = await api.post("/auth/authenticate");
       setUser(response.data.user);
       setError(null);
     } catch (error) {
+      setError(error.message || 'Failed to authenticate');
       setUser(null);
-      setError('Failed to authenticate');
     } finally {
       setLoading(false);
     }
   };
- 
+
   useEffect(() => {
     checkAuth(); // Check authentication on mount
   }, []);
 
-
-  return <AuthContext.Provider value={{user, loading , error, checkAuth}}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, loading, error, checkAuth }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
+export const useAuth = () => useContext(AuthContext);
+
 export const useAuthContext = () => useContext(AuthContext);
-
-
-

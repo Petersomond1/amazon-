@@ -6,11 +6,12 @@ import { useAuth } from "../../../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-  const { user, loading } = useAuth(); // Access user and loading
+ const { user, loading } = useAuth(); // Access user and loading
+ useEffect(() => {}, [user]);
   if (loading) {
     return <div>Loading...</div>; // Show loading state
   }
-  useEffect(() => {}, [user]);
+ 
   return (
     <div className="font-titleFont">
       <div className="w-full bg-white py-6">

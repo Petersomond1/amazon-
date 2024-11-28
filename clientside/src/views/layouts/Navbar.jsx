@@ -10,12 +10,18 @@ import { allItems } from "../../constants";
 import TopHeader from "../../components/common/TopHeader"
 import { useSelector } from "react-redux";
 import api from "../../services/apiConfig";
+import { useAuth } from "../../context/AuthContext";
+import Cookies from 'js-cookie';
 
-const Navbar = ({ user, loading }) => {
+const Navbar = () => {
+
+  const { user, loading, checkAuth, error } = useAuth(); // Access user and loading
+  console.log("user on fronted ", user)
   const [showAll, setShowAll] = useState(false);
   const [showUser, seShowUser] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryChoice, setCategoryChoice] = useState("All");
+
 
   const navigate = useNavigate();
   //const products = useSelector((state) => state.cart.items);

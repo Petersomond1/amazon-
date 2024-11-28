@@ -5,10 +5,10 @@ import sendEmail  from "../../utils/sendEmail.js";
 export const register = async (req, res, next) => {
     try {
         const token = await registerService(req.body);
-        console.log(token)
         await sendEmail(req.body.email);
-        console.log("register and sent email done !")
+     // Adjust these settings for both register and login
         res.cookie('token', token, { httpOnly: true });
+
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
         next(error);
