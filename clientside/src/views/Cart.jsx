@@ -43,7 +43,6 @@ const Cart = () => {
       return setTotalPrice(total);
     });
   }, [products]);
-  console.log("prodcuts", products);
   return (
     <div className="w-full bg-gray-100 p-4">
       {products.length > 0 ? (

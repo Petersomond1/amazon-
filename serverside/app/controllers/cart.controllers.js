@@ -1,27 +1,13 @@
 import db from '../../config/db.js';
 import { validationResult } from 'express-validator';
+import { addItemToCartService } from '../services/cartServices.js';
 
 // Add an item to the cart
 export const addItemToCart = async (req, res) => {
     try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-
-        const { product_id, quantity } = req.body;
         const user_id = req.user.id;
-
-        // Check if the item already exists in the cart
-        const [rows] = await db.execute('SELECT * FROM cart_items WHERE user_id = ? AND product_id = ?', [user_id, product_id]);
-        if (rows.length > 0) {
-            return res.status(400).json({ message: 'Item already in cart. Update the quantity instead.' });
-        }
-
-        const query = 'INSERT INTO cart_items (user_id, product_id, quantity) VALUES (?, ?, ?)';
-        const values = [user_id, product_id, quantity];
-
-        await db.execute(query, values);
+        const result = await addItemToCartService(req.body.products, user_id);
+        console.log("here")
 
         res.status(201).json({ message: 'Item added to cart' });
     } catch (error) {
@@ -34,7 +20,6 @@ export const getCartItems = async (req, res) => {
         const user_id = req.user.id;
 
         const [rows] = await db.execute('SELECT c.id, p.name, p.description, p.price, c.quantity, p.image_url FROM cart_items c JOIN products p ON c.product_id = p.id WHERE c.user_id = ?', [user_id]);
-        
         res.status(200).json(rows);
     } catch (error) {
     }

@@ -16,7 +16,6 @@ import Cookies from 'js-cookie';
 const Navbar = () => {
 
   const { user, loading, checkAuth, error } = useAuth(); // Access user and loading
-  console.log("user on fronted ", user)
   const [showAll, setShowAll] = useState(false);
   const [showUser, seShowUser] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
