@@ -23,7 +23,7 @@ import Register from "../../views/Register";
 import Login from "../../views/Login";
 import ProductDetail from "../../views/defaultviews/ProductDetail";
 import CategoryProducts from "../../views/defaultviews/CategoryProducts.jsx"
-import Cart from "../../views/Cart"
+import Cart from "../../views/Payment/Cart"
 import Orders from "../../views/Orders"
 import Profile from "../../views/Profile"
 import ShippingView from "../../views/ShippingView";
@@ -31,6 +31,8 @@ import PrivateRoute from "../../app/PrivateRoute.jsx"
 import Checkout from "../../views/Checkout.jsx";
 import { Elements } from "@stripe/react-stripe-js";
 import { stripePromise } from "../../services/stripe.js";
+import ErrorPage from "../../views/Payment/ErrorPage.jsx";
+import SuccessPage from "../../views/Payment/SuccessPage.jsx";
 
 
 
@@ -50,6 +52,8 @@ const router = createBrowserRouter([
       { path: "cart", element: <Cart /> },
       { path: "order", element: <Orders /> },
       { path: "profile", element: <Profile /> },
+      { path: "success", element: <SuccessPage /> },
+      { path: "cancel", element: <ErrorPage /> },
       { path: "shipping", element: ( 
           <PrivateRoute>
             <ShippingView />

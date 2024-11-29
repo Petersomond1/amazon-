@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addItem, clearCart, removeItem } from "../redux/slices/cartSlice";
+import { addItem, clearCart, removeItem } from "../../redux/slices/cartSlice";
 import { Link, useNavigate } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { useAddToCart, useCreateCheckoutSession } from "../services/cartService";
+import { useAddToCart, useCreateCheckoutSession } from "../../services/cartService";
 import { useOutletContext } from "react-router-dom";
-import {useAuth} from "../context/AuthContext";
+import {useAuth} from "../../context/AuthContext";
 
 const Cart = () => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -15,7 +15,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   //const { mutateAsync } = useAddToCart();
   const createCheckoutSession = useCreateCheckoutSession();
-  const navigate = useNavigate();
+
 
   const handleRemoveItem = (id) => {
     dispatch(removeItem(id));
@@ -38,6 +38,8 @@ const Cart = () => {
     //mutateAsync({ products, user, loading });
     createCheckoutSession.mutate(products, {
       onSuccess:(data)=>{
+        //we use windows location to change url to another website
+        // because navigate redirect the page under the same website but cannot take you to a different  website 
        window.location.href = data.url;
       }
     })
