@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
-// import handleError from '../utils/handleError.js';
-
+import { CustomError } from '../utils/customErrorHandler.js';
 const authMiddleware = (req, res, next) => {
     const token = req.cookies.token;
 
@@ -13,8 +12,7 @@ const authMiddleware = (req, res, next) => {
         req.user = decoded;
         next();
     } catch (error) {
-        // handleError(error, req, res, next);
-        next(error);
+        throw new CustomError("user not authenticated",401)
     }
 };
 

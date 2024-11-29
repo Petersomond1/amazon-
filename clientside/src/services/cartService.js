@@ -72,3 +72,17 @@ export const useAddToCart = () => {
 }
 
 
+
+export const useCreateCheckoutSession = () =>{
+  return useMutation(
+    async (cartItems)=>{
+      const response = await api.post(`/payment/create-checkout-session`, {cartItems})
+      return response.data;
+    },
+    {
+     onError:(error)=>{
+      console.error("error creating checkout sessions: ", error.reponse?.data || response.message)
+     } 
+    },
+  )
+}

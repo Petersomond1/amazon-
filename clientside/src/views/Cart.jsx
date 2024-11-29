@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem, clearCart, removeItem } from "../redux/slices/cartSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { useAddToCart } from "../services/cartService";
+import { useAddToCart, useCreateCheckoutSession } from "../services/cartService";
 import { useOutletContext } from "react-router-dom";
 import {useAuth} from "../context/AuthContext";
 
@@ -13,7 +13,9 @@ const Cart = () => {
   const { user, loading, error, checkAuth } = useAuth();
   const totalAmount = useSelector((state) => state.cart.totalAmount);
   const dispatch = useDispatch();
-  const { mutateAsync } = useAddToCart();
+  //const { mutateAsync } = useAddToCart();
+  const createCheckoutSession = useCreateCheckoutSession();
+  const navigate = useNavigate();
 
   const handleRemoveItem = (id) => {
     dispatch(removeItem(id));
@@ -33,7 +35,12 @@ const Cart = () => {
   };
 
   const handleProceedToPay = () => {
-    mutateAsync({ products, user, loading });
+    //mutateAsync({ products, user, loading });
+    createCheckoutSession.mutate(products, {
+      onSuccess:(data)=>{
+       window.location.href = data.url;
+      }
+    })
   };
 
   useEffect(() => {

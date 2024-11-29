@@ -1,3 +1,5 @@
+import {createStripeCheckoutSession} from '../services/paymentService.js'
+
 import Stripe from 'stripe'
 const stripe = Stripe(process.env.STRIPE_KEY); 
 
@@ -34,5 +36,15 @@ export const saveRecordToDB = async (req, res)=>{
     } catch (error) {
         console.error("someerror here ", error)
         res.Status(500).json(error)
+    }
+}
+
+export const CreateCheckoutSessions = async (req, res, next)=>{
+    try {
+        const {cartItems} = req.body;
+        const sessionUrl = await createStripeCheckoutSession(cartItems);
+        res.json({url:sessionUrl})
+    } catch (error) {
+        next(error)
     }
 }

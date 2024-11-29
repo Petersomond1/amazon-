@@ -1,0 +1,9 @@
+import { CustomError } from '../utils/customErrorHandler.js'
+
+export const validateCart = (req, res, next) =>{
+    const {cartItems} = req.body;
+    if(!cartItems || !Array.isArray(cartItems) || cartItems.length === 0){
+        return next(new CustomError('Epty cart !', 400))
+    }
+    next();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+}
