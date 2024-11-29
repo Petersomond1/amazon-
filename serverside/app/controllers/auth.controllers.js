@@ -5,7 +5,13 @@ import sendEmail  from "../../utils/sendEmail.js";
 export const register = async (req, res, next) => {
     try {
         const token = await registerService(req.body);
-        await sendEmail(req.body.email);
+        const mailOptions = {
+            from: process.env.MAIL_USER,
+            to: process.env.MAIL_USER,  //when project is done , change to userEmail
+            subject: 'WELCOME TO Amazon CLone',
+            text: 'Congratulations! You have successfully registered to Amazon Clone!'
+        }
+        await sendEmail(mailOptions);
      // Adjust these settings for both register and login
         res.cookie('token', token, { httpOnly: true });
 

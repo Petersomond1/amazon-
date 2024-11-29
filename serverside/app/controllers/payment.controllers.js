@@ -1,49 +1,51 @@
-import {createStripeCheckoutSession} from '../services/paymentService.js'
-
-import Stripe from 'stripe'
-const stripe = Stripe(process.env.STRIPE_KEY); 
-
-
-export const processPayment = async (req, res) =>{
-    const {products} = req.body
-    let total = 0;
-    for (let x in products)
-    {
-        total += products[x].price * products[x].quantity
-    }
-    const amountInCents = total * 100;
-
-
-    try {
-        const paymentIntent = await stripe.paymentIntents.create({
-            amount:amountInCents, // Amount in cents
-            currency: 'usd',
-            payment_method_types: ['card'],
-        });
-        res.status(200).send({
-            clientSecret: paymentIntent.client_secret,
-        });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-        console.log("issue in getting payment link", error)
-    }
-    
-}
-
-export const saveRecordToDB = async (req, res)=>{
-    try {
-        console.log("req body ", req.body)
-    } catch (error) {
-        console.error("someerror here ", error)
-        res.Status(500).json(error)
-    }
-}
+import sendEmail from '../../utils/sendEmail.js';
+import {clearCartItems, createStripeCheckoutSession, handleStripeWebhookService, sendAdminNotification } from '../services/paymentService.js'
 
 export const CreateCheckoutSessions = async (req, res, next)=>{
     try {
         const {cartItems} = req.body;
-        const sessionUrl = await createStripeCheckoutSession(cartItems);
+        const {id, email} = req.user;
+        const sessionUrl = await createStripeCheckoutSession(cartItems, email, id);
         res.json({url:sessionUrl})
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const handleStripeWebhook = async (req, res, next)=>{
+    console.log("this one works")
+    const sig = req.headers['stripe-signature']
+    try {
+        const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+        if(event.type === 'checkout.session.completed'){
+            const session = event.data.object;
+
+            //save payment details to database
+            await handleStripeWebhookService({
+                sessionId: session.id,
+                cutomerEmail: sessionStorage.customer_details.email,
+                amount: session.amout_total / 100,
+                currency: session.currency,
+                status: 'success',
+            })
+
+           // await clearCartItems()
+            //send Confirmation eamil
+            const mailOptions = {
+                from: process.env.MAIL_USER,
+                to: process.env.MAIL_USER,  //when project is done , change to userEmail
+                subject: 'Payment Confrimation',
+                text: 'Thanks you for your payment!'
+            }
+            await sendEmail(mailOptions)
+
+            //Notify admin
+            await sendAdminNotification()
+        
+            res.status(200).send({received: true})    
+        }else{
+            res.status(400).send(`Unable to send events`)
+        }
     } catch (error) {
         next(error)
     }
