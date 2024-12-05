@@ -14,7 +14,7 @@ const transporter = nodeMailer.createTransport({
 
 const sendEmail = async (mailOptions) => {
     try {
-        await transporter.sendMail(mailOptions);
+         await transporter.sendMail(mailOptions);
     } catch (error) {
         console.log("here is my problem ", error)
         throw new CustomError("Email not sent", 500)

@@ -9,6 +9,7 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import router from './routes/routeCentre.js'
 import globalErrorHandler from './utils/globalErrorHandler.js'
+import { handleStripeWebhook } from './app/controllers/payment.controllers.js';
 
 
 // Load environment variables from .env file
@@ -36,6 +37,10 @@ app.use(morgan('dev'));
 app.use(helmet()); 
 app.use(compression()); 
 app.use(cookieParser())
+
+app.use('/webhook',express.raw({type:'application/json'}), handleStripeWebhook);
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());

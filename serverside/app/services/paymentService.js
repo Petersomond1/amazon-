@@ -35,7 +35,6 @@ export const createStripeCheckoutSession = async (cartItems, userEmail, userId)=
 }
 
 export const handleStripeWebhookService = async (paymentData)=>{
-
     const payment_query = `
         INSERT INTO payments (session_id, email, amount, currency, status, created_at)
         VALUES (?, ?, ?, ?, ?, ?)
@@ -53,7 +52,7 @@ export const handleStripeWebhookService = async (paymentData)=>{
     try {
         await query(payment_query, values )
     } catch (error) {
-        throw new CustomError("Failed to save payment details: " + error.message)
+        throw new CustomError("Failed to save payment details: ",500 , error.message)
     }
 }
 
@@ -69,19 +68,21 @@ export const clearCartItems = async (userId) => {
     }
 };
 
-export const sendAdminNotification = async ()=>{
+export const sendAdminNotification = async (id, amount_total) => {
+    console.log("before admin n")
+
     try {
         const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER,
+            from: process.env.MAIL_USER,
+            to: process.env.MAIL_USER,
             subject: 'Payment Confirmation',
             html: `
                 <h1>Thank you for your payment!</h1>
-                <p>We received your payment of $${session.amount_total / 100}.</p>
-                <p>Transaction ID: ${session.id}</p>
+                <p>We received your payment of $${amount_total / 100}.</p>
+                <p>Transaction ID: ${id}</p>
             `,
         };
-
+            console.log("before admin notif", mailOptions)
             await sendEmail(mailOptions);
     } catch (error) {
         throw new CustomError("cannot send admin notfication"+ error.message)

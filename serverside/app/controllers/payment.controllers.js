@@ -1,5 +1,7 @@
+import Stripe from 'stripe';
 import sendEmail from '../../utils/sendEmail.js';
 import {clearCartItems, createStripeCheckoutSession, handleStripeWebhookService, sendAdminNotification } from '../services/paymentService.js'
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY); 
 
 export const CreateCheckoutSessions = async (req, res, next)=>{
     try {
@@ -13,21 +15,28 @@ export const CreateCheckoutSessions = async (req, res, next)=>{
 }
 
 export const handleStripeWebhook = async (req, res, next)=>{
-    console.log("this one works")
     const sig = req.headers['stripe-signature']
+    
     try {
-        const event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
-        if(event.type === 'checkout.session.completed'){
-            const session = event.data.object;
+        // Use raw body to verify the signature
 
-            //save payment details to database
+        const event = stripe.webhooks.constructEvent(
+            req.body, // Raw body from express.raw middleware
+            sig,
+            process.env.STRIPE_WEBHOOK_SECRET
+        );
+        if(event.type !== 'checkout.session.completed'){
+            return res.status(400).send("issue in payment webhook")
+        }
+            const session = event.data.object;
             await handleStripeWebhookService({
                 sessionId: session.id,
-                cutomerEmail: sessionStorage.customer_details.email,
-                amount: session.amout_total / 100,
+                customerEmail: session.customer_details.email, // Access customer email directly
+                amount: session.amount_total / 100, // Corrected typo: 'amout_total' to 'amount_total'
                 currency: session.currency,
                 status: 'success',
-            })
+            });
+            
 
            // await clearCartItems()
             //send Confirmation eamil
@@ -37,15 +46,12 @@ export const handleStripeWebhook = async (req, res, next)=>{
                 subject: 'Payment Confrimation',
                 text: 'Thanks you for your payment!'
             }
-            await sendEmail(mailOptions)
+           await sendEmail(mailOptions)
 
             //Notify admin
-            await sendAdminNotification()
-        
+            await sendAdminNotification(session.id, session.amount_total)
+            console.log("final")
             res.status(200).send({received: true})    
-        }else{
-            res.status(400).send(`Unable to send events`)
-        }
     } catch (error) {
         next(error)
     }
