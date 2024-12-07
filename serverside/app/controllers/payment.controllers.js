@@ -50,7 +50,6 @@ export const handleStripeWebhook = async (req, res, next)=>{
 
             //Notify admin
             await sendAdminNotification(session.id, session.amount_total)
-            console.log("final")
             res.status(200).send({received: true})    
     } catch (error) {
         next(error)

@@ -19,7 +19,7 @@ const app = express();
 
 // Middleware configurations
 app.use(cors({
-    origin: ['http://localhost:5173'],
+    origin: [process.env.CLIENT_URL],
     optionsSuccessStatus: 200,
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],

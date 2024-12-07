@@ -7,7 +7,7 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const createStripeCheckoutSession = async (cartItems, userEmail, userId)=>{
     try {
-        console.log(userEmail, userId)
+
         const lineItems  = cartItems.map((item=>({
            price_data: {
             currency:'usd',
@@ -61,8 +61,7 @@ export const clearCartItems = async (userId) => {
 
     try {
         const result = await query(cart_query, [userId]);
-        console.log("result", result)
-        console.log(`Cleared ${result.affectedRows} cart items for user ID ${userId}`);
+
     } catch (error) {
         throw new Error('Failed to clear cart items: ' + error.message);
     }
