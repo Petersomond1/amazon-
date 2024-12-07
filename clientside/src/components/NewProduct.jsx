@@ -15,7 +15,6 @@ const NewProductModal = ({ isOpen, onClose }) => {
   const {mutate:createProduct} = useCreateProduct(onSuccess, onError)
 
   const onSubmit = async (data) => {
-    console.log("here is data", data)
 
     const formData = new FormData()
     formData.append("name", data.name)

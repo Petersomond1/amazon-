@@ -47,7 +47,6 @@ const AdminDashboardUsers = () => {
     isFetching: isFetchingUsers,
     isLoading: isLoadingUsers,
   } = useGetUsers();
-//   console.log("ham lusers", fetchedUsers?.data);
 
   //call UPDATE hook
   const { mutateAsync: updateUser, isPending: isUpdatingUser } =
