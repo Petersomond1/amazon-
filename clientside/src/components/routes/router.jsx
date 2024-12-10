@@ -1,17 +1,12 @@
-// import * as React from "react";
-import { createRoot } from "react-dom/client";
 import { 
   createBrowserRouter,
-  RouterProvider,
-  Route,
-//   Link,
 } from "react-router-dom";
 import DefaultLayout from "../../views/layouts/DefaultLayout";
 import AdminProductsSelector from "../../views/adminViews/AdminProductsSelector";
 import DashLayout from "../../views/layouts/DashLayout";
 import Home from "../../views/Home";
 import AllProducts from "../../views/AllProducts";
-import ProductLayout from "../../views/layouts/ProductLayout";
+//import ProductLayout from "../../views/layouts/ProductLayout";
 import AdminDashboardProducts from "../../views/adminViews/AdminDashboardProducts"
 import AdminDashboardSales from "../../views/adminViews/AdminDashboardSales";
 import AdminDashboardOrders from "../../views/adminViews/AdminDashboardOrders";
@@ -30,7 +25,6 @@ import ShippingView from "../../views/ShippingView";
 import PrivateRoute from "../../app/PrivateRoute.jsx"
 import Checkout from "../../views/Checkout.jsx";
 import { Elements } from "@stripe/react-stripe-js";
-import { stripePromise } from "../../services/stripe.js";
 import ErrorPage from "../../views/Payment/ErrorPage.jsx";
 import SuccessPage from "../../views/Payment/SuccessPage.jsx";
 
@@ -47,7 +41,7 @@ const router = createBrowserRouter([
     children: [
       {index: true, element: <Home/>},
       { path: "all-products", element: <AllProducts /> },
-      { path: "category/:name", element: <CategoryProducts /> }, //missing sidebar design
+      { path: "category/:name", element: <CategoryProducts /> },
       { path: "product/:id/:name", element: <ProductDetail /> }, 
       { path: "cart", element: <Cart /> },
       { path: "order", element: <Orders /> },
@@ -59,16 +53,16 @@ const router = createBrowserRouter([
             <ShippingView />
           </PrivateRoute>
         ) },
-        {
-          path: "checkout",
-          element: (
-            <PrivateRoute>
-              <Elements stripe={stripePromise}>
-                <Checkout />
-              </Elements>
-            </PrivateRoute>
-          ),
-        },  
+       // {
+       //   path: "checkout",
+       //   element: (
+       //     <PrivateRoute>
+       //       <Elements stripe={stripePromise}>
+       //         <Checkout />
+       //       </Elements>
+       //     </PrivateRoute>
+       //   ),
+       // },  
       ]
   },
 
@@ -89,25 +83,6 @@ const router = createBrowserRouter([
 
       ]
     },
-
-    // {
-    //   path: "/",
-    //   element: <ProductLayout/>,
-    //   children: [
-    //   {index: true, element: <Home/>},
-    //    {path: "all-products",
-    //     element: <AllProducts/>,
-    //    },
-
-    //    {path: "category/:name",
-    //     element: <ProductsCategories/>,
-    //    } ,
-      
-       
-    //   ]
-    // },
-
-    
 
   ]);
 

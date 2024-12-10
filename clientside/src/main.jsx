@@ -10,7 +10,7 @@ import {
 import { AuthProvider } from './context/AuthContext.jsx'
 
 import { Provider } from "react-redux";
-import {store, persistor  } from './redux/store.js'
+import {store  } from './redux/store.js'
 
 const queryClient = new QueryClient()
 

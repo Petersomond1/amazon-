@@ -1,6 +1,5 @@
 import { 
     useQuery, 
-    useQueries, 
     useQueryClient,
     useMutation } from "react-query";
 
