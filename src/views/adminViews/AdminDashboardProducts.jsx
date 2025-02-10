@@ -33,9 +33,9 @@ const columns = [
   columnHelper.accessor("category_name", {
     header: "Category",
   }),
-  columnHelper.accessor("image_url", {
-    header: "Image URL",
-  }),
+  // columnHelper.accessor("image", {
+  //   header: "Image URL",
+  // }),
 ];
 
 const csvConfig = mkConfig({
@@ -57,7 +57,6 @@ const AdminDashboardProducts = () => {
     error,
   } = useQuery("products", fetchProducts);
 
-  console.log("products", products);
   const handleExportRows = (rows) => {
     const rowData = rows.map((row) => row.original);
     const csv = generateCsv(csvConfig)(rowData);

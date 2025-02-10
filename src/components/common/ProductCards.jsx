@@ -15,7 +15,7 @@ const ProductsCards = ({ secondProductSet }) => {
         >
           <Link to={`/product/${product.name}`}>
             <img
-              src={product.image_url}
+              src={product.image}
               alt={product.name}
               className="w-full h-52 object-cover rounded-t-lg"
             />

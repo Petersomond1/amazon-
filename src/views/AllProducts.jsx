@@ -1,128 +1,124 @@
-import React from "react";
-import {useOutletContext } from "react-router-dom";
-import { useQuery } from "react-query";
-import StarIcon from "@mui/icons-material/Star";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import "./style/products.css";
-import { useDispatch } from "react-redux";
-import {  useFetchProducts } from "../services/productServices";
-import { addItem } from "../redux/slices/cartSlice.js";
+import React, { useState, useEffect } from "react";
+import FilterSideBar from '../components/common/FilterSideBar'
+import { Link, useParams } from "react-router-dom";
+import { useGetAllProducts } from "../hooks/usePublic";
 
 const AllProducts = () => {
-  const dispatch = useDispatch();
-  const { isLoading, data, error } = useFetchProducts()
+  const { name } = useParams();
+  const [filters, setFilters] = useState({});
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(false); // Controls filter modal
+  const {data, isLoading, error, refetch} = useGetAllProducts()
 
-  if (isLoading) {
-    return <div> data is loading ... wait a second</div>;
-  }
+  const handleFilterChange = (updatedFilters) => {
+    setFilters(updatedFilters);
+    setIsFilterOpen(false); // Close filter modal automatically on mobile
+  };
 
- 
-  if (error) {
-    return <div>a problem while getting all products</div>;
-  }
+  useEffect(() => {
+    if (!data) return;
 
-  const { sortOption } = useOutletContext();
+    const applyFilters = () => {
+      if (Object.keys(filters).length === 0) {
+        setFilteredProducts(data);
+        return;
+      }
 
-  // Apply sorting logic
-  const sortedProducts = [...(data || [])].sort((a, b) => {
-    switch (sortOption) {
-      case "priceLowToHigh":
-        return a.price - b.price;
-      case "priceHighToLow":
-        return b.price - a.price;
-      case "avgCustomerReview":
-        return b.rating - a.rating; // Assuming each product has a rating field
-      case "newest":
-        return new Date(b.createdAt) - new Date(a.createdAt); // Assuming each product has a createdAt field
-      default:
-        return 0;
-    }
-  });
+      const filtered = data.filter((item) => {
+        const matchesType =
+          filters.type?.length > 0 ? filters.type.includes(item.type) : true;
+        const matchesSoldBy =
+          filters.soldBy?.length > 0 ? filters.soldBy.includes(item.sold_by?.toLowerCase()) : true;
+        const matchesPrice =
+          filters.priceRange
+            ? item.price >= filters.priceRange[0] && item.price <= filters.priceRange[1]
+            : true;
+        const matchesSalePrice =
+          filters.salePriceRange
+            ? item.sale_price >= filters.salePriceRange[0] &&
+              item.sale_price <= filters.salePriceRange[1]
+            : true;
+        const matchesReview =
+          filters.review !== undefined ? parseFloat(item.ratings) >= filters.review : true;
+
+        return matchesType && matchesSoldBy && matchesPrice && matchesSalePrice && matchesReview;
+      });
+
+      setFilteredProducts(filtered);
+    };
+
+    applyFilters();
+  }, [filters, data]);
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error loading products.</p>;
 
   return (
-    <div className="w-full bg-gray-100 p-4 ">
-      {/* in order to change the width you change the div under this comment to w-full instead of max-w-screen */}
-      <div className="max-w-screen-2xl mx-auto grid grid-cols-4 gap-10 px-4 bg-[#E3E6E6] py-5">
-        {sortedProducts?.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white h-auto border-[1px] border-gray-200 py-6 z-30
-        hover:border-transparent shadow-none hover:shadow-testShadow duration-200 relative
-        flex flex-col gap-4"
-          >
-            <span className="text-xs capitalize italic absolute top-2 right-2 text-gray-500">
-              {item.category_name}
-            </span>
-            <div className="w-full h-auto flex items-center justify-center relative group">
-              <img
-                className="w-full h-[256px] object-contain"
-                src={item.image}
-                alt=""
-              />
-              <ul
-                className="w-full h-36 bg-gray-100 absolute bottom-[-160px]
-              flex flex-col items-end justify-center gap-2
-            font-titleFont px-2 border-l border-r
-            group-hover:bottom-0 duration-700"
-              >
-                <li className="productLi">
-                  compare <LocalOfferIcon />
-                </li>
-                <li className="productLi">
-                  View details <ArrowCircleRightIcon />
-                </li>
-                <li className="productLi">
-                  Add to Cart <ShoppingCartCheckoutIcon />
-                </li>
-                <li className="productLi">
-                  Add Favorite <ThumbUpOffAltIcon />
-                </li>
-              </ul>
-            </div>
-            <div className="px-4  z-10 bg-white">
-              <div className="flex items-center justify-between ">
-                <h2 className="font-titleFont tracking-wide text-lg text-amazon_blue">
-                  {item.name.substring(0, 20)}
-                </h2>
-                <p className="text-sm text-gray-600 font-semibold">
-                  {item.price}
-                </p>
-              </div>
-              <div className="text-sm">
-                <p>{item.description.substring(0, 150)}...</p>
-                <div className="text-yellow-500">
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                  <StarIcon />
-                </div>
-              </div>
-              <button
-                onClick={() =>
-                  dispatch(
-                    addItem({
-                      id: item.id,
-                      title: item.name,
-                      description: item.description,
-                      price: item.price,
-                      image: item.image_url,
-                    })
-                  )
-                }
-                className="w-full font-titleFont font-medium text-base bg-gradient-to-tr
-            from-yellow-400 to-yellow-200 border hover:from-yellow-300 hover:to-yellow-500 
-            border-yellow-500 hover:border-yellow-700 active:bg-gradient-to-bl
-            active:from-yellow-400 active:to-yellow-500 duration:200
-            py-1.5 rounded-md mt-3"
-              >
-                Add to Cart
-              </button>
-            </div>
+    <div className="flex flex-col md:flex-row mx-auto p-6 bg-gray-100 min-h-screen">
+      {/* Filter Toggle Button (Visible Only on Mobile) */}
+      <button
+        className="md:hidden mb-6 mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md fixed bottom-5 left-5 z-50"
+        onClick={() => setIsFilterOpen(true)}
+      >
+        Show Filters
+      </button>
+
+      {/* Sticky Filter Sidebar on Desktop */}
+      {data && (
+
+        <div className="hidden md:block md:w-1/4 sticky top-20 h-screen overflow-y-auto">
+        <FilterSideBar products={data} onFilterChange={handleFilterChange} />
+      </div>
+      )}
+
+      {/* Mobile Filter Modal (Sliding Sidebar) */}
+      {data && isFilterOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50">
+          <div className="w-3/4 sm:w-1/2 bg-white p-6 shadow-lg h-full flex flex-col">
+            <button
+              className="text-red-500 text-lg font-bold mb-4 self-end"
+              onClick={() => setIsFilterOpen(false)}
+            >
+              Close ✖
+            </button>
+            <FilterSideBar products={data} onFilterChange={handleFilterChange} />
           </div>
-        ))}
+        </div>
+      )}
+
+      {/* Product List */}
+      <div className="flex-grow p-6">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
+          {name} Products
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProducts?.length > 0 ? (
+            filteredProducts?.map((item) => (
+              <Link key={item.id} to={`/product/${item.id}/${item.name}`}>
+                <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl">
+                  <div className="w-full h-56">
+                    <img
+                      className="w-full h-full object-cover"
+                      src={item.image_a}
+                      alt={item.name}
+                    />
+                  </div>
+                  <div className="p-4 flex flex-col justify-between">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                      {item.name}
+                    </h2>
+                    <p className="text-lg text-indigo-600 font-medium mb-4">
+                      ${item.price}
+                    </p>
+                    <p className="text-gray-700 line-clamp-2">{item.description}</p>
+                  </div>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <p className="text-center text-gray-600 mt-8">No products match your filters.</p>
+          )}
+        </div>
       </div>
     </div>
   );

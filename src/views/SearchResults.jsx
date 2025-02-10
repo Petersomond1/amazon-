@@ -1,24 +1,29 @@
-import React, { useState, useEffect } from "react";
-import FilterSideBar from "../../components/common/FilterSideBar";
-import { useQuery } from "react-query";
-import { getCategoryProducts } from "../../services/productServices";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import api from "../services/apiConfig";
+import { useGetSearchResutl } from "../hooks/usePublic";
+import FilterSideBar from '../components/common/FilterSideBar'
 
-const CategoryProducts = () => {
-  const { name } = useParams();
+
+const SearchResults = () => {
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("q");
+   const { name } = useParams();
   const [filters, setFilters] = useState({});
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false); // Controls filter modal
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["getCategoryProducts", name],
-    queryFn: () => getCategoryProducts(name),
-  });
+  const { data, isLoading, error, refetch } = useGetSearchResutl(searchQuery)
 
   const handleFilterChange = (updatedFilters) => {
     setFilters(updatedFilters);
     setIsFilterOpen(false); // Close filter modal automatically on mobile
   };
+
+  useEffect(() => {
+    refetch(); // 🔹 Force fetch when query changes
+}, [searchQuery, refetch]);
 
   useEffect(() => {
     if (!data) return;
@@ -33,7 +38,7 @@ const CategoryProducts = () => {
         const matchesType =
           filters.type?.length > 0 ? filters.type.includes(item.type) : true;
         const matchesSoldBy =
-          filters.soldBy?.length > 0 ? filters.soldBy.includes(item.sold_by?.toLowerCase()) : true;
+          filters.soldBy?.length > 0 ? filters.soldBy.includes(item.sold_by.toLowerCase()) : true;
         const matchesPrice =
           filters.priceRange
             ? item.price >= filters.priceRange[0] && item.price <= filters.priceRange[1]
@@ -53,16 +58,17 @@ const CategoryProducts = () => {
     };
 
     applyFilters();
-  }, [filters, data]);
+  }, [filters, data, searchQuery]);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading products.</p>;
+
+  if (isLoading) return <p className="text-center mt-8">Loading results...</p>;
+  if (error) return <p className="text-center mt-8 text-red-500">Error fetching search results.{error.message}</p>;
 
   return (
     <div className="flex flex-col md:flex-row mx-auto p-6 bg-gray-100 min-h-screen">
       {/* Filter Toggle Button (Visible Only on Mobile) */}
       <button
-        className="md:hidden mb-6 mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md fixed top-24 left-5 z-50"
+        className="md:hidden mb-6 mt-2 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md fixed bottom-5 left-5 z-50"
         onClick={() => setIsFilterOpen(true)}
       >
         Show Filters
@@ -126,4 +132,4 @@ const CategoryProducts = () => {
   );
 };
 
-export default CategoryProducts;
+export default SearchResults;

@@ -1,178 +1,151 @@
-import React, { useState } from "react";
-import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import { Link } from "react-router-dom";
-import CollapseIcon from "@mui/icons-material/ArrowBack"; // Importing a collapse icon
-import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
-// import "../styles/dashboardLayout.css";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import CategoryIcon from "@mui/icons-material/Category";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import TouchAppIcon from "@mui/icons-material/TouchApp";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import MoveToInboxIcon from "@mui/icons-material/MoveToInbox";
-import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import LogoutIcon from "@mui/icons-material/Logout";
-import StorefrontIcon from "@mui/icons-material/Storefront";
-import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
-import DensitySmallIcon from "@mui/icons-material/DensitySmall";
-import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
-import ContrastIcon from "@mui/icons-material/Contrast";
-// import { useTheme } from "../../context/ThemeContext";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, IconButton } from '@mui/material';
+import {
+  SpaceDashboard as SpaceDashboardIcon,
+  ShoppingCart as ShoppingCartIcon,
+  Category as CategoryIcon,
+  AttachMoney as AttachMoneyIcon,
+  TouchApp as TouchAppIcon,
+  LocalShipping as LocalShippingIcon,
+  PeopleOutline as PeopleOutlineIcon,
+  CalendarMonth as CalendarMonthIcon,
+  Logout as LogoutIcon,
+  Settings as SettingsIcon,
+  Notifications as NotificationsIcon,
+  Person as PersonIcon,
+  ArrowBack as ArrowBackIcon
+} from '@mui/icons-material';
 
 const DashSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
-//   const { darkMode, toggleTheme } = useTheme();
 
+  // Toggle sidebar collapse
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
   };
 
   return (
-    <Sidebar
-      collapsed={collapsed}
-      toggled={!collapsed}
-      onToggle={toggleSidebar}
-      style={{
-        // background: darkMode ? "#00010f" : "#fff",
-        // color: darkMode ? "#fff" : "#00010f",
-        height: "100vh",
+    <Drawer
+      variant="persistent"
+      anchor="left"
+      open={true}
+      sx={{
+        width: collapsed ? 80 : 240,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: collapsed ? 80 : 240,
+          boxSizing: 'border-box',
+          backgroundColor: '#2E3B55',
+          color: '#fff',
+          transition: 'width 0.3s',
+        },
       }}
     >
-      <Menu
-        // menuItemStyles={{
-        //   button: {
-        //     [`&.active`]: {
-        //       backgroundColor: "#010a14",
-        //       color: "#093c6b",
-        //     },
-        //   },
-        // }}
-      >
-        <div style={{ display: "flex" }}>
-          <MenuItem
-            icon={<CloseFullscreenIcon onClick={toggleSidebar} />}
-          ></MenuItem>
-          {/* <MenuItem icon={<ContrastIcon onClick={toggleTheme} />} /> */}
-        </div>
+      <div style={{ padding: '20px 10px', display: 'flex', justifyContent: 'space-between' }}>
+        <IconButton onClick={toggleSidebar}>
+          <ArrowBackIcon sx={{ color: 'white' }} />
+        </IconButton>
+      </div>
+      <List>
+        {/* Dashboard Menu */}
+        <ListItem button component={Link} to="/admin-dashboard">
+          <ListItemIcon>
+            <SpaceDashboardIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          {!collapsed && <ListItemText primary="Dashboard" />}
+        </ListItem>
+        
+        {/* E-Commerce Section */}
+        <ListItem button>
+          <ListItemIcon>
+            <ShoppingCartIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          {!collapsed && <ListItemText primary="E-Commerce" />}
+        </ListItem>
 
-        <MenuItem
-          icon={
-            <Link to="/dashboard">
-              <i className="material-icons">
-                <SpaceDashboardIcon />
-              </i>
-            </Link>
-          }
-        >
-          Dashboard
-        </MenuItem>
-        <SubMenu
-          label="E-Commerce"
-          icon={
-            <i className="material-icons">
-              <ShoppingCartIcon />
-            </i>
-          }
-        >
-          <MenuItem
-            icon={
-              <i className="material-icons">
-                <DensitySmallIcon />
-              </i>
-            }
-            component={
-              <Link to="products">
-                <CategoryIcon />
-              </Link>
-            }
-          >
-            Products
-          </MenuItem>
-          <MenuItem
-            icon={
-              <i className="material-icons">
-                <BusinessCenterIcon />
-              </i>
-            }
-            component={
-              <Link to="sales">
-                <AttachMoneyIcon />
-              </Link>
-            }
-          >
-            Sales
-          </MenuItem>
-          <MenuItem
-            icon={
-              <i className="material-icons">
-                <StorefrontIcon />
-              </i>
-            }
-            component={
-              <Link to="orders">
-                <TouchAppIcon />
-              </Link>
-            }
-          >
-            Orders
-          </MenuItem>
-          <MenuItem
-            icon={
-              <i className="material-icons">
-                <LocalShippingIcon />
-              </i>
-            }
-            component={<Link to="shipping" />}
-          >
-            Shipping
-          </MenuItem>
-        </SubMenu>
+        <ListItem button component={Link} to="/products">
+          <ListItemIcon>
+            <CategoryIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          {!collapsed && <ListItemText primary="Products" />}
+        </ListItem>
 
-        <MenuItem
-          icon={
-            <i className="material-icons">
-              <MoveToInboxIcon />
-            </i>
-          }
-          component={<Link to="inbox" />}
-        >
-          Inbox
-        </MenuItem>
+        <ListItem button component={Link} to="/sales">
+          <ListItemIcon>
+            <AttachMoneyIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          {!collapsed && <ListItemText primary="Sales" />}
+        </ListItem>
 
-        <MenuItem
-          icon={
-            <i className="material-icons">
-              <PeopleOutlineIcon />
-            </i>
-          }
-          component={<Link to="users">Users</Link>}
-        >
-          Users
-        </MenuItem>
-        <MenuItem
-          icon={
-            <i className="material-icons">
-              <CalendarMonthIcon />
-            </i>
-          }
-          component={<Link to="calendar">Calendar</Link>}
-        >
-          Calendar
-        </MenuItem>
-        <MenuItem
-          icon={
-            <i className="material-icons">
-              <LogoutIcon />
-            </i>
-          }
-          component={<Link to="/">Sign out</Link>}
-        >
-          Sign out
-        </MenuItem>
-      </Menu>
-    </Sidebar>
+        <ListItem button component={Link} to="/orders">
+          <ListItemIcon>
+            <TouchAppIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          {!collapsed && <ListItemText primary="Orders" />}
+        </ListItem>
+
+        <ListItem button component={Link} to="/shipping">
+          <ListItemIcon>
+            <LocalShippingIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          {!collapsed && <ListItemText primary="Shipping" />}
+        </ListItem>
+
+        <Divider sx={{ backgroundColor: '#ddd' }} />
+
+        {/* Admin Management Section */}
+        <ListItem button component={Link} to="/users">
+          <ListItemIcon>
+            <PeopleOutlineIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          {!collapsed && <ListItemText primary="Users" />}
+        </ListItem>
+
+        <ListItem button component={Link} to="/calendar">
+          <ListItemIcon>
+            <CalendarMonthIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          {!collapsed && <ListItemText primary="Calendar" />}
+        </ListItem>
+
+        <ListItem button component={Link} to="/settings">
+          <ListItemIcon>
+            <SettingsIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          {!collapsed && <ListItemText primary="Settings" />}
+        </ListItem>
+
+        <ListItem button component={Link} to="/profile">
+          <ListItemIcon>
+            <PersonIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          {!collapsed && <ListItemText primary="Profile" />}
+        </ListItem>
+
+        <Divider sx={{ backgroundColor: '#ddd' }} />
+
+        {/* Sign Out */}
+        <ListItem button component={Link} to="/">
+          <ListItemIcon>
+            <LogoutIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          {!collapsed && <ListItemText primary="Sign Out" />}
+        </ListItem>
+      </List>
+      <Divider sx={{ backgroundColor: '#ddd' }} />
+
+      {/* Additional Sections */}
+      <List>
+        <ListItem button component={Link} to="/notifications">
+          <ListItemIcon>
+            <NotificationsIcon sx={{ color: 'white' }} />
+          </ListItemIcon>
+          {!collapsed && <ListItemText primary="Notifications" />}
+        </ListItem>
+      </List>
+    </Drawer>
   );
 };
 
-export default DashSidebar
+export default DashSidebar;

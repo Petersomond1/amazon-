@@ -92,6 +92,10 @@ export const usStates = [
   'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
 ];
 
+export const userRoles = [
+  'admin', 
+  'client']
+
 // Generate mock product data
 export const fakeData = [
   {

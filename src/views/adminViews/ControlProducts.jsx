@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./admindashboard.css"; // Importing the CSS file for styling
 
 
-const AdminProductsSelector = () => {
+const  ControlProducts= () => {
  
       const [inputs, setInputs] = useState({
         input1: "",
@@ -78,7 +78,7 @@ const AdminProductsSelector = () => {
       };
     
       return (
-        <div className="dashboard-admin">
+        <div className="w-full h-full dashboard-admin" >
           <h2>Dashboard Admin</h2>
           <form onSubmit={handleSubmit}>
             {Object.entries(inputs).map(([key, value], index) => (
@@ -110,4 +110,4 @@ const AdminProductsSelector = () => {
       );
     };
     
-export default AdminProductsSelector
+export default ControlProducts;

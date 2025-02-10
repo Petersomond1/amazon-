@@ -45,22 +45,22 @@ const HomeListCard1 = ({ thirdProductSet }) => {
         {thirdProductSet?.map((product, index) => (
           <div
             key={index}
-            className="p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
+            className="p-4 bg-white  m-3 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
           >
-            <Link to={`/product/${product.name}`}>
+            <Link to={`/product/${product.id}/${product.name}`}>
               <img
                 src={product.image}
                 alt={product.name}
                 className="w-full h-64 object-cover rounded-t-lg"
               />
             </Link>
-            <div className="p-4">
+            <div className="p-4 ">
               <h3 className="text-xl font-semibold text-gray-800">{product.name}</h3>
               <p className="text-gray-600 text-sm mt-2">{product.description || "No description available."}</p>
               <div className="mt-4 flex justify-between items-center">
                 <span className="text-lg font-bold text-blue-600">${product.price}</span>
                 <Link
-                  to={`/product/${product.name}`}
+                  to={`/product/${product.id}/${product.name}`}
                   className="text-blue-500 hover:text-blue-700 text-sm"
                 >
                   View Details

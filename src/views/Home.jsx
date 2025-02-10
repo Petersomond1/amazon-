@@ -16,6 +16,7 @@ const Home = () => {
     queryKey: "fetchIdsofProducts",
     queryFn: fetchIdsofProducts,
   });
+
   // Data extraction from fetched products
   const firstProductSet = products && products[0] ? products[0] : [];
   const secondProductSet = products && products[1] ? products[1] : [];
@@ -43,11 +44,11 @@ const Home = () => {
         <HomeListCard1 thirdProductSet={thirdProductSet} />
       </section>
 
-      {/* Products Cards */}
+      {/* Products Cards*/}
       <section className="py-0">
       <ProductsCards secondProductSet={secondProductSet} />
       </section>
-
+ 
       {/* feature Cards */}
       <section>
       <FeaturedSection fifthProductSet={fifthProductSet} />

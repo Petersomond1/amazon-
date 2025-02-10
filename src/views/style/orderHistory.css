@@ -1,0 +1,137 @@
+/* Order History Container */
+.order-history-container {
+    
+    max-width: 95%;
+    margin: 40px 10px ;
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 8px;
+}
+
+/* Title */
+.order-history-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Order Card */
+.order-card {
+    background: white;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Order Summary */
+.order-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Order Info */
+.order-info p {
+    margin: 5px 0;
+}
+
+/* Order Status */
+.order-status {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    text-transform: uppercase;
+    color: white;
+}
+
+.order-status.shipped {
+    background: #ff9900;
+}
+
+.order-status.delivered {
+    background: #28a745;
+}
+
+/* Expand Button */
+.expand-btn {
+    background: #ff9900;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.expand-btn:hover {
+    background: #e68a00;
+}
+
+/* Order Details */
+.order-details {
+    margin-top: 15px;
+    padding: 15px;
+    background: #fdfdfd;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+/* Shipping Info */
+.shipping-info h3 {
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.shipping-info p {
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+/* Order Items */
+.order-items h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.order-item img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+.item-details p {
+    font-size: 14px;
+    margin: 3px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .order-summary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .expand-btn {
+        margin-top: 10px;
+    }
+}

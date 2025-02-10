@@ -5,31 +5,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { saveIntendedRoute } from '../redux/actions/navigationActions';
 
 
-
-
-    export const useAddShippingAddress = () => {
-      const navigate = useNavigate()
-        const addShippingAddress = async (addressData) => {
-          try {
-            const response = await api.post("/cart/shipping", addressData);
-            return response.data;
-          } catch (error) {
-            throw new Error('Failed to add shipping address');
-          }
-        };
-      
-        return useMutation(addShippingAddress,{
-          onSuccess:(data)=>{
-            navigate(data.redirect)
-          },
-          onError:(error)=>{
-            console.error("error in shipping in cartService ", error)
-          }
-        })
-        }
-    
-
-
+export const useAddShippingAddress = () => {
+  const navigate = useNavigate()
+    const addShippingAddress = async (addressData) => {
+      try {
+        console.log("sending to api")
+        const response = await api.post("/order/addShipping", addressData);
+        return response.data;
+      } catch (error) {
+        throw new Error('Failed to add shipping address');
+      }
+    };
+  
+    return useMutation(addShippingAddress,{
+      onSuccess:(data)=>{
+        navigate(data.redirect)
+      },
+      onError:(error)=>{
+        console.error("error in shipping in cartService ", error)
+      }
+    })
+    }
 
 const addToCart = async ({ products, user, loading, navigate, dispatch }) => {
     // If loading, you might want to show a loading state or simply return
@@ -70,8 +66,6 @@ export const useAddToCart = () => {
         }
     });
 }
-
-
 
 export const useCreateCheckoutSession = () =>{
   return useMutation(

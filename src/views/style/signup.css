@@ -1,0 +1,154 @@
+/* Overall Container */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f7f7f7;
+  padding: 20px;
+}
+
+/* Amazon Logo */
+.register-logo img {
+  width: 140px;
+  margin-bottom: 20px;
+}
+
+/* Form Container */
+.register-form-container {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 100%;
+  max-width: 380px;
+  text-align: left;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Title */
+.register-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Error Messages */
+.register-error {
+  color: #d9534f;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+/* Input Groups */
+.register-input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.register-input-group label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.register-input-group input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  transition: 0.3s;
+  background: #fcfcfc;
+}
+
+.register-input-group input:focus {
+  border-color: #ff9900;
+  box-shadow: 0 0 5px rgba(255, 153, 0, 0.5);
+  outline: none;
+}
+
+/* Register Button */
+.register-button {
+  background-color: #ff9900;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.register-button:hover {
+  background-color: #e68a00;
+}
+
+.register-button:disabled {
+  background-color: #d8d8d8;
+  cursor: not-allowed;
+}
+
+/* Terms & Conditions */
+.register-terms {
+  font-size: 12px;
+  color: #555;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.register-terms a {
+  color: #0066c0;
+}
+
+/* Divider */
+.register-divider {
+  border: 0;
+  height: 1px;
+  background: #ddd;
+  margin: 20px 0;
+}
+
+/* Business Account & Sign-in Links */
+.register-subtext {
+  font-size: 13px;
+  color: #444;
+}
+
+.register-login-link {
+  font-size: 14px;
+  color: #0066c0;
+}
+
+/* Footer */
+.register-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: #777;
+}
+
+.register-footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.register-footer-links a {
+  color: #0066c0;
+  text-decoration: none;
+}
+
+.register-footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+  .register-form-container {
+      width: 90%;
+  }
+}

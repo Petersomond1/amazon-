@@ -46,17 +46,17 @@ export function useCreateUser() {
     return useMutation({
       mutationFn: async (user) => {
         //send api update request here
-        await new Promise((resolve) => setTimeout(resolve, 1000)); //fake api call
-        return Promise.resolve();
+        const updatedUser = await api.patch(`/admin/users`, user)
+        console.log("here is the updated user")
       },
       //client side optimistic update
-      onMutate: (newUserInfo) => {
-        queryClient.setQueryData(["users"], (prevUsers) =>
-          prevUsers?.map((prevUser) =>
-            prevUser.id === newUserInfo.id ? newUserInfo : prevUser
-          )
-        );
-      },
+      // onMutate: (newUserInfo) => {
+      //   queryClient.setQueryData(["users"], (prevUsers) =>
+      //     prevUsers?.map((prevUser) =>
+      //       prevUser.id === newUserInfo.id ? newUserInfo : prevUser
+      //     )
+      //   );
+      // },
       // onSettled: () => queryClient.invalidateQueries({ queryKey: ['users'] }), //refetch users after mutation, disabled for demo
     });
   }
@@ -87,7 +87,7 @@ export function useDeleteUser() {
   }
   
   
-  export  const validateRequired = (value) => !!value.length;
+export  const validateRequired = (value) => !!value.length;
   const validateEmail = (email) =>
     !!email.length &&
     email

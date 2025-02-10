@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import "./style/login.css"
-import logo from "../assets/images/amazon-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import api from "../services/apiConfig";
-import { useNavigate } from "react-router-dom";
+import logo from "../assets/images/amazon-logo.png";
+import "./style/signup.css"; // Custom CSS file for styling
 
 const Register = () => {
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -17,116 +17,111 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     if (data.password !== data.re_password) {
-      alert("passwords are not identical");
+      return setError("⚠ Passwords do not match.");
     }
     try {
+      setLoading(true);
       const result = await api.post("/auth/register", data);
-      if (result.status == 201) {
+      if (result.status === 201) {
         navigate("/");
       }
     } catch (error) {
-      console.log("here is the issue", error);
-      setError(error);
+      setError(error.response?.data?.message || "⚠ Something went wrong.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="register-container">
-      {error && <h3 style={{ color: "red" }}>{error.message}</h3>}
-      <div className="register-upper">
-        <img src={logo} alt="" style={{ width: "105px", height: "32px" }} />
+      {/* Amazon Logo */}
+      <div className="register-logo">
+        <Link to="/">
+          <img src={logo} alt="Amazon Logo" />
+        </Link>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="register-form">
-          <h3 style={{ margin: "13px" }}>Create account</h3>
 
-          <div className="register-input">
-            <label htmlFor="name" className="register-labels">
-              Your name
-            </label>
+      {/* Registration Form */}
+      <div className="register-form-container">
+        <h2 className="register-title">Create account</h2>
+
+        {error && <p className="register-error">{error}</p>}
+
+        <form onSubmit={handleSubmit(onSubmit)} className="register-form" style={{padding:"5px",maxWidth:"95%"}}>
+          {/* Name Input */}
+          <div className="register-input-group" >
+            <label>Your Name</label>
             <input
-              type="name"
-              placeholder="name"
-              name="name"
-              className="register-input-field"
-              {...register("name", { require: "the name is required" })}
+              type="text"
+              placeholder="First and last name"
+              {...register("name", { required: "⚠ Name is required" })}
+              style={{width:"100%"}}
             />
+            {errors.name && <span className="register-error">{errors.name.message}</span>}
           </div>
 
-          <div className="register-input">
-            <label htmlFor="email" className="register-labels">
-              Mobile number or email
-            </label>
+          {/* Email Input */}
+          <div className="register-input-group">
+            <label>Mobile number or email</label>
             <input
               type="email"
-              placeholder="mobile or email"
-              name="email"
-              className="register-input-field"
-              {...register("email", { require: "the email is required" })}
+              placeholder="Enter email or phone number"
+              {...register("email", { required: "⚠ Email is required" })}
             />
+            {errors.email && <span className="register-error">{errors.email.message}</span>}
           </div>
 
-          <div className="register-input">
-            <label htmlFor="password" className="register-labels">
-              Password
-            </label>
-            <br></br>
+          {/* Password Input */}
+          <div className="register-input-group">
+            <label>Password</label>
             <input
               type="password"
-              placeholder="password "
-              name="password"
-              className="register-input-field"
-              {...register("password", { require: "the password is required" })}
+              placeholder="At least 6 characters"
+              {...register("password", { required: "⚠ Password is required", minLength: { value: 6, message: "⚠ Password must be at least 6 characters" } })}
             />
+            {errors.password && <span className="register-error">{errors.password.message}</span>}
           </div>
 
-          <div className="register-input">
-            <label htmlFor="re-password" className="register-labels">
-              Re-enter password
-            </label>
-            <br></br>
+          {/* Confirm Password Input */}
+          <div className="register-input-group">
+            <label>Re-enter Password</label>
             <input
               type="password"
-              placeholder="re-enter password"
-              name="re-password"
-              className="register-input-field"
-              {...register("re_password", {
-                require: "the re-password is required",
-              })}
+              placeholder="Confirm your password"
+              {...register("re_password", { required: "⚠ Please confirm your password" })}
             />
+            {errors.re_password && <span className="register-error">{errors.re_password.message}</span>}
           </div>
-          <div className="register-input">
-            <button className="register-btn" type="submit">
-              Continue
-            </button>
-          </div>
-          <div>
-            <p style={{ fontSize: "14px", margin: "13px" }}>
-              By creating an account, you agree to Amazon's Conditions of Use
-              and Privacy Notice.
-            </p>
-            <br />
-            <p style={{ fontSize: "13px", marginLeft: "13px" }}>
-              <strong>Buying for work !</strong>
-            </p>
-            <Link style={{ fontSize: "13px", marginLeft: "13px" }}>
-              Create a free business account
-            </Link>
-            <p style={{ fontSize: "12px", marginLeft: "13px" }}>
-              Already have an account? <Link>Sign in</Link>
-            </p>
-          </div>
-        </div>
-      </form>
+
+          {/* Submit Button */}
+          <button type="submit" className="register-button" disabled={loading}>
+            {loading ? "Creating Account..." : "Continue"}
+          </button>
+        </form>
+
+        <p className="register-terms">
+          By creating an account, you agree to Amazon's <Link to="/">Conditions of Use</Link> and <Link to="/">Privacy Notice</Link>.
+        </p>
+
+        <hr className="register-divider" />
+
+        <p className="register-subtext">
+          <strong>Buying for work?</strong> <Link to="/">Create a free business account</Link>
+        </p>
+
+        <p className="register-login-link">
+          Already have an account? <Link to="/login">Sign in</Link>
+        </p>
+      </div>
+
+      {/* Footer */}
       <div className="register-footer">
         <div className="register-footer-links">
-          <Link className="register-link">Conditions of use</Link>
-          <Link className="register-link">Privacy Notice</Link>
-          <Link className="register-link">Help</Link>
+          <Link to="/">Conditions of Use</Link>
+          <Link to="/">Privacy Notice</Link>
+          <Link to="/">Help</Link>
         </div>
-        <div style={{ fontSize: "13px" }}>
-          © 1996-2024, Amazon.com, Inc. or its affiliates{" "}
-        </div>
+        <p>© 1996-2024, Amazon.com, Inc. or its affiliates</p>
       </div>
     </div>
   );

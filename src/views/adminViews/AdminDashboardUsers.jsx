@@ -2,7 +2,6 @@ import { useMemo, useState } from "react";
 import {
   MRT_EditActionButtons,
   MaterialReactTable,
-  // createRow,
   useMaterialReactTable,
 } from "material-react-table";
 import {
@@ -14,46 +13,36 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "react-query";
-import { fakeData, usStates } from "./makeOrdersData";
+
+import { userRoles,usStates } from "./makeOrdersData";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import api from "../../services/apiConfig";
 import {
   useCreateUser,
   useGetUsers,
  useUpdateUser,
   useDeleteUser,
-  validateRequired,
    validateUser,
 } from "../../services/AdminDashboardUserService";
 
 
 
 const AdminDashboardUsers = () => {
-  //call CREATE hook
-  const { mutateAsync: createUser, isPending: isCreatingUser } =
-    useCreateUser();
-  //call READ hook
+  //get all users
   const {
     data: fetchedUsers = [],
     isError: isLoadingUsersError,
     isFetching: isFetchingUsers,
     isLoading: isLoadingUsers,
   } = useGetUsers();
+  //create new user
+  const { mutateAsync: createUser, isPending: isCreatingUser } = useCreateUser();
 
-  //call UPDATE hook
-  const { mutateAsync: updateUser, isPending: isUpdatingUser } =
-    useUpdateUser();
+  //update user 
+  const { mutateAsync: updateUser, isPending: isUpdatingUser } = useUpdateUser();
+
   //call DELETE hook
-  const { mutateAsync: deleteUser, isPending: isDeletingUser } =
-    useDeleteUser();
+  const { mutateAsync: deleteUser, isPending: isDeletingUser } = useDeleteUser();
 
   //CREATE action
   const handleCreateUser = async ({ values, table }) => {
@@ -68,21 +57,28 @@ const AdminDashboardUsers = () => {
   };
 
   //UPDATE action
-  const handleSaveUser = async ({ values, table }) => {
-    const newValidationErrors = validateUser(values);
-    if (Object.values(newValidationErrors).some((error) => error)) {
-      setValidationErrors(newValidationErrors);
-      return;
-    }
-    setValidationErrors({});
-    await updateUser(values);
+  const handleUpdateUser = async ({ values, table }) => {
+    // const newValidationErrors = validateUser(values);
+    // if (Object.values(newValidationErrors).some((error) => error)) {
+    //   setValidationErrors(newValidationErrors);
+    //   return;
+    // }
+    // setValidationErrors({});
+     // Rename "phone" to "phone_number" before sending the update request
+    const updatedValues = { ...values, phone: values.phone_number};
+    delete updatedValues.phone_number;
+    await updateUser(updatedValues);
     table.setEditingRow(null); //exit editing mode
   };
 
   //DELETE action
   const openDeleteConfirmModal = (row) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-      deleteUser(row.original.id);
+      deleteUser(row.original.id, {
+        onSuccess:(result)=>{
+          alert(`${result.data.message}`)
+        }
+      });
     }
   };
 
@@ -112,8 +108,8 @@ const AdminDashboardUsers = () => {
           //optionally add validation checking for onBlur or onChange
         },
       },
-      {
-        accessorKey: "last_name",
+        {
+        accessorKey: "lastName",
         header: "Last Name",
         muiEditTextFieldProps: {
           required: true,
@@ -127,6 +123,7 @@ const AdminDashboardUsers = () => {
             }),
         },
       },
+     
       {
         accessorKey: "email",
         header: "Email",
@@ -147,24 +144,18 @@ const AdminDashboardUsers = () => {
         accessorKey: "role",
         header: "Role",
         editVariant: "select",
-        editSelectOptions: usStates,
-        muiEditTextFieldProps: {
-          select: true,
-          error: !!validationErrors?.state,
-          helperText: validationErrors?.state,
-        },
+        editSelectOptions: userRoles,
+        // muiEditTextFieldProps: {
+        //   select: true,
+        //   error: !!validationErrors?.role,
+        //   helperText: validationErrors?.role,
+        // },
       },
       {
-        accessorKey: "phone_number",
-        header: "Phone Number",
-        editVariant: "select",
-        editSelectOptions: usStates,
-        muiEditTextFieldProps: {
-          select: true,
-          error: !!validationErrors?.state,
-          helperText: validationErrors?.state,
-        },
-      },
+        accessorKey: "phone",
+        header: "Phone Number",          
+    },
+     
     ],
     [validationErrors]
   );
@@ -190,7 +181,7 @@ const AdminDashboardUsers = () => {
     onCreatingRowCancel: () => setValidationErrors({}),
     onCreatingRowSave: handleCreateUser,
     onEditingRowCancel: () => setValidationErrors({}),
-    onEditingRowSave: handleSaveUser,
+    onEditingRowSave: handleUpdateUser,
     //optionally customize modal content
     renderCreateRowDialogContent: ({ table, row, internalEditComponents }) => (
       <>

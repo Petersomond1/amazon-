@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import api from "../services/apiConfig"; // Assuming this is your axios setup or replace with fetch setup
+import api from "../services/apiConfig";
 
 const AuthContext = createContext();
 
@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // ✅ Check authentication (Runs on app load)
   const checkAuth = async () => {
     setLoading(true);
     try {
@@ -15,19 +16,40 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data.user);
       setError(null);
     } catch (error) {
-      setError(error.message || 'Failed to authenticate');
       setUser(null);
+      setError(error.message || "Failed to authenticate");
     } finally {
       setLoading(false);
     }
   };
 
+  // ✅ Login function (Updates UI instantly)
+  const login = async (credentials) => {
+    try {
+      const response = await api.post("/auth/login", credentials);
+      checkAuth()
+      return response;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || "Login failed");
+    }
+  };
+
+  // ✅ Logout function (Clears user state)
+  const logout = async () => {
+    try {
+      await api.post("/auth/logout");
+      setUser(null); // 🛑 CLEAR STATE IMMEDIATELY
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
+  };
+
   useEffect(() => {
-    checkAuth(); // Check authentication on mount
+    checkAuth();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, error, checkAuth }}>
+    <AuthContext.Provider value={{ user, loading, error, checkAuth, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
@@ -35,4 +57,6 @@ export const AuthProvider = ({ children }) => {
 
 export const useAuth = () => useContext(AuthContext);
 
+
 export const useAuthContext = () => useContext(AuthContext);
+

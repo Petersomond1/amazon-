@@ -1,55 +1,50 @@
-// src/pages/SignIn.js
-import React, { useState } from "react";
-import "./style/login.css";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { useLoginUser } from "../services/authService";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/assets/logo.png";
 
 const Login = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { login } = useAuth(); // 🛑 Use login from context
   const navigate = useNavigate();
-  const { mutateAsync } = useLoginUser();
 
-  const onSubmit = (data) => {
-    mutateAsync(data);
+  const onSubmit = async (data) => {
+    try {
+      await login(data); // ✅ Login & Update State
+      navigate("/"); // ✅ Redirect after successful login
+    } catch (error) {
+      console.error("Login failed:", error.message);
+    }
   };
 
   return (
-    <div className="signin-container">
-      <form
-        className="signin-form"
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-      >
-        <img
-          src="/path/to/amazon-logo.png"
-          alt="Amazon Logo"
-          className="signin-logo"
-        />
-        <h1>Sign in</h1>
-        <label htmlFor="email">Email or mobile phone number</label>
-        <input type="text" id="email" {...register("email")} />
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="mb-6">
+        <img src={logo} alt="Amazon Logo" className="w-28" />
+      </div>
 
-        <label htmlFor="password">Password </label>
-        <input type="password" id="password" {...register("password")} />
-        <button type="submit">Continue</button>
-        <p>
-          By continuing, you agree to Amazon's{" "}
-          <a href="/conditions">Conditions of Use</a> and{" "}
-          <a href="/privacy">Privacy Notice</a>.
-        </p>
-        <a href="/need-help">Need help?</a>
-      </form>
-      <div className="signin-footer">
-        <p>New to Amazon?</p>
-        <button onClick={() => navigate('/register')}>
-          Create your Amazon account
-        </button>
+      <div className="bg-white p-6 w-96 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">Sign in</h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div>
+            <label className="text-gray-700 font-medium">Email</label>
+            <input type="text" className="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-yellow-300"
+              {...register("email", { required: "Email is required" })} />
+            {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
+          </div>
+
+          <div>
+            <label className="text-gray-700 font-medium">Password</label>
+            <input type="password" className="w-full p-2 border border-gray-300 rounded-lg focus:ring focus:ring-yellow-300"
+              {...register("password", { required: "Password is required" })} />
+            {errors.password && <span className="text-red-500 text-sm">{errors.password.message}</span>}
+          </div>
+
+          <button type="submit" className="w-full bg-yellow-500 text-black py-2 rounded-lg font-semibold hover:bg-yellow-400 transition duration-300">
+            Continue
+          </button>
+        </form>
       </div>
     </div>
   );
