@@ -64,28 +64,28 @@ const DashSidebar = () => {
           {!collapsed && <ListItemText primary="E-Commerce" />}
         </ListItem>
 
-        <ListItem button component={Link} to="/products">
+        <ListItem button component={Link} to="/admin-dashboard/products">
           <ListItemIcon>
             <CategoryIcon sx={{ color: 'white' }} />
           </ListItemIcon>
           {!collapsed && <ListItemText primary="Products" />}
         </ListItem>
 
-        <ListItem button component={Link} to="/sales">
+        <ListItem button component={Link} to="/admin-dashboard/sales">
           <ListItemIcon>
             <AttachMoneyIcon sx={{ color: 'white' }} />
           </ListItemIcon>
           {!collapsed && <ListItemText primary="Sales" />}
         </ListItem>
 
-        <ListItem button component={Link} to="/orders">
+        <ListItem button component={Link} to="/admin-dashboard/orders">
           <ListItemIcon>
             <TouchAppIcon sx={{ color: 'white' }} />
           </ListItemIcon>
           {!collapsed && <ListItemText primary="Orders" />}
         </ListItem>
 
-        <ListItem button component={Link} to="/shipping">
+        <ListItem button component={Link} to="/admin-dashboard/shipping">
           <ListItemIcon>
             <LocalShippingIcon sx={{ color: 'white' }} />
           </ListItemIcon>
@@ -95,28 +95,28 @@ const DashSidebar = () => {
         <Divider sx={{ backgroundColor: '#ddd' }} />
 
         {/* Admin Management Section */}
-        <ListItem button component={Link} to="/users">
+        <ListItem button component={Link} to="/admin-dashboard/users">
           <ListItemIcon>
             <PeopleOutlineIcon sx={{ color: 'white' }} />
           </ListItemIcon>
           {!collapsed && <ListItemText primary="Users" />}
         </ListItem>
 
-        <ListItem button component={Link} to="/calendar">
+        <ListItem button component={Link} to="/admin-dashboard/calendar">
           <ListItemIcon>
             <CalendarMonthIcon sx={{ color: 'white' }} />
           </ListItemIcon>
           {!collapsed && <ListItemText primary="Calendar" />}
         </ListItem>
 
-        <ListItem button component={Link} to="/settings">
+        <ListItem button component={Link} to="/admin-dashboard/settings">
           <ListItemIcon>
             <SettingsIcon sx={{ color: 'white' }} />
           </ListItemIcon>
           {!collapsed && <ListItemText primary="Settings" />}
         </ListItem>
 
-        <ListItem button component={Link} to="/profile">
+        <ListItem button component={Link} to="/admin-dashboard/profile">
           <ListItemIcon>
             <PersonIcon sx={{ color: 'white' }} />
           </ListItemIcon>
@@ -137,7 +137,7 @@ const DashSidebar = () => {
 
       {/* Additional Sections */}
       <List>
-        <ListItem button component={Link} to="/notifications">
+        <ListItem button component={Link} to="/admin-dashboard/notifications">
           <ListItemIcon>
             <NotificationsIcon sx={{ color: 'white' }} />
           </ListItemIcon>
