@@ -142,7 +142,7 @@ const AdminDashboardProducts = () => {
 
     <NewProductModal isOpen={isModalOpen} onClose={handleCloseModal} />
 
-   7
+
     <MaterialReactTable table={table} />
     *
   </div>
